@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  MS_CINEMA: 'http://127.0.0.1:3333',
-  MS_SEGURIDAD: 'http://127.0.0.1.8090'
+  MS_NEGOCIO: 'http://127.0.0.1:3333',
+  MS_SEGURIDAD: 'http://127.0.0.1.8090/api'
 };
 
 /*
