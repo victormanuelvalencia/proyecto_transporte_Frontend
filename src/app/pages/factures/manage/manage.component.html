@@ -1,0 +1,313 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Contenido de la página -->
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+        </div>
+
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+            <!-- ID (solo lectura) -->
+            <div class="row">
+              <div class="col-4">
+                <label>ID:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ facture.id }}</p>
+              </div>
+            </div>
+            <br />
+
+            <!-- Número de Tarjeta -->
+            <div class="row">
+              <div class="col-4">
+                <label>Número de Tarjeta:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.card_number"
+                  formControlName="cardNumber"
+                />
+                <div
+                  *ngIf="theFormGroup.get('cardNumber').errors && 
+                          (theFormGroup.get('cardNumber').dirty || theFormGroup.get('cardNumber').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('cardNumber').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('cardNumber').errors.pattern" class="msnError">
+                    Debe tener 16 dígitos
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Año de Expiración -->
+            <div class="row">
+              <div class="col-4">
+                <label>Año de Expiración:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.exp_year"
+                  formControlName="expYear"
+                />
+                <div
+                  *ngIf="theFormGroup.get('expYear').errors && 
+                          (theFormGroup.get('expYear').dirty || theFormGroup.get('expYear').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('expYear').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('expYear').errors.pattern" class="msnError">
+                    Debe tener 4 dígitos
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Mes de Expiración -->
+            <div class="row">
+              <div class="col-4">
+                <label>Mes de Expiración:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.exp_month"
+                  formControlName="expMonth"
+                />
+                <div
+                  *ngIf="theFormGroup.get('expMonth').errors && 
+                          (theFormGroup.get('expMonth').dirty || theFormGroup.get('expMonth').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('expMonth').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('expMonth').errors.pattern" class="msnError">
+                    Debe ser un mes válido (01-12)
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- CVC -->
+            <div class="row">
+              <div class="col-4">
+                <label>CVC:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.cvc"
+                  formControlName="cvc"
+                />
+                <div
+                  *ngIf="theFormGroup.get('cvc').errors && 
+                          (theFormGroup.get('cvc').dirty || theFormGroup.get('cvc').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('cvc').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('cvc').errors.pattern" class="msnError">
+                    Debe tener 3 o 4 dígitos
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Nombre -->
+            <div class="row">
+              <div class="col-4">
+                <label>Nombre:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.name"
+                  formControlName="name"
+                />
+                <div
+                  *ngIf="theFormGroup.get('name').errors && 
+                          (theFormGroup.get('name').dirty || theFormGroup.get('name').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('name').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('name').errors.minlength" class="msnError">
+                    Mínimo 2 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Apellido -->
+            <div class="row">
+              <div class="col-4">
+                <label>Apellido:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.last_name"
+                  formControlName="lastName"
+                />
+                <div
+                  *ngIf="theFormGroup.get('lastName').errors && 
+                          (theFormGroup.get('lastName').dirty || theFormGroup.get('lastName').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('lastName').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('lastName').errors.minlength" class="msnError">
+                    Mínimo 2 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Email -->
+            <div class="row">
+              <div class="col-4">
+                <label>Email:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="email"
+                  [(ngModel)]="facture.email"
+                  formControlName="email"
+                />
+                <div
+                  *ngIf="theFormGroup.get('email').errors && 
+                          (theFormGroup.get('email').dirty || theFormGroup.get('email').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('email').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('email').errors.email" class="msnError">
+                    Email inválido
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Teléfono -->
+            <div class="row">
+              <div class="col-4">
+                <label>Teléfono:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.phone"
+                  formControlName="phone"
+                />
+                <div
+                  *ngIf="theFormGroup.get('phone').errors && 
+                          (theFormGroup.get('phone').dirty || theFormGroup.get('phone').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('phone').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('phone').errors.pattern" class="msnError">
+                    Debe tener 10 dígitos
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Dirección -->
+            <div class="row">
+              <div class="col-4">
+                <label>Dirección:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.address"
+                  formControlName="address"
+                />
+                <div
+                  *ngIf="theFormGroup.get('address').errors && 
+                          (theFormGroup.get('address').dirty || theFormGroup.get('address').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('address').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('address').errors.minlength" class="msnError">
+                    Mínimo 5 caracteres
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Valor -->
+            <div class="row">
+              <div class="col-4">
+                <label>Valor:</label>
+              </div>
+              <div class="col-8">
+                <input
+                  class="form-controller"
+                  type="text"
+                  [(ngModel)]="facture.value"
+                  formControlName="value"
+                />
+                <div
+                  *ngIf="theFormGroup.get('value').errors && 
+                          (theFormGroup.get('value').dirty || theFormGroup.get('value').touched)"
+                >
+                  <strong *ngIf="theFormGroup.get('value').errors.required" class="msnError">
+                    Requerido
+                  </strong>
+                  <strong *ngIf="theFormGroup.get('value').errors.pattern" class="msnError">
+                    Debe ser un número
+                  </strong>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-4">
+                    <label>Expense Id</label>
+                </div>
+                <div class="col-8">
+                    <input class="form-controller" type="text" [(ngModel)]="facture.expense_id" formControlName="expenseId" />
+                </div>
+            </div>
+
+            <!-- Muestra el error si el formulario no es válido -->
+            <button [disabled]="!theFormGroup.valid" class="btn btn-primary mt-3">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
