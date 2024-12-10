@@ -59,5 +59,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'dir_list_order',
         loadChildren: () => import('src/app/pages/dir_list_order/dir_list_order.module').then(m => m.DirListOrderModule)
+    },
+    {
+        path: 'rutes',
+        loadChildren: () => import('src/app/pages/rute/rute.module').then(m => m.RuteModule)
     }
 ];

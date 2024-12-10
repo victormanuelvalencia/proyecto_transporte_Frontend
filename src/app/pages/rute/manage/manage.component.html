@@ -1,0 +1,147 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div> 
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 *ngIf="mode==1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode==2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode==3" class="mb-0">Actualizar</h3>
+        </div>
+
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+
+            <!-- Campo Id (Solo para visualización) -->
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ rute.id }}</p>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Distance -->
+            <div class="row">
+              <div class="col-4">
+                <label>Distancia:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="distance" 
+                  [(ngModel)]="rute.distance"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('distance').errors && (theFormGroup.get('distance').dirty || theFormGroup.get('distance').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('distance').errors['required']">Este campo es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('distance').errors['pattern']">Debe ser un número entero.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Count Distribution Centers -->
+            <div class="row">
+              <div class="col-4">
+                <label>Centros de Distribución:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="count_distribution_centers" 
+                  [(ngModel)]="rute.count_distribution_centers"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('count_distribution_centers').errors && (theFormGroup.get('count_distribution_centers').dirty || theFormGroup.get('count_distribution_centers').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('count_distribution_centers').errors['required']">Este campo es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('count_distribution_centers').errors['pattern']">Debe ser un número decimal válido.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Average Time -->
+            <div class="row">
+              <div class="col-4">
+                <label>Tiempo promedio:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="average_time" 
+                  [(ngModel)]="rute.average_time"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('average_time').errors && (theFormGroup.get('average_time').dirty || theFormGroup.get('average_time').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('average_time').errors['required']">Este campo es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('average_time').errors['pattern']">Debe ser un número decimal con hasta 2 decimales.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Contract ID -->
+            <div class="row">
+              <div class="col-4">
+                <label>ID del contrato:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="contract_id" 
+                  [(ngModel)]="rute.contract_id"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('contract_id').errors && (theFormGroup.get('contract_id').dirty || theFormGroup.get('contract_id').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('contract_id').errors['pattern']">Debe ser un número entero.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Vehicle ID -->
+            <div class="row">
+              <div class="col-4">
+                <label>ID del vehículo:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="vehicle_id" 
+                  [(ngModel)]="rute.vehicle_id"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('vehicle_id').errors && (theFormGroup.get('vehicle_id').dirty || theFormGroup.get('vehicle_id').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('vehicle_id').errors['pattern']">Debe ser un número entero.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Botones -->
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-8">
+                <button *ngIf="mode==2" class="btn btn-success btn-block" (click)="create()">Crear</button>
+                <button *ngIf="mode==3" class="btn btn-success btn-block" (click)="update()">Actualizar</button>
+              </div>
+            </div>
+            <br />
+            
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

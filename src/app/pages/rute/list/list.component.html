@@ -1,0 +1,45 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Contrato</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Distancia</th>
+                                <th scope="col">Cantidad de centros de distribución</th>
+                                <th scope="col">Tiempo promedio</th>
+                                <th scope="col">ID del contrato</th>
+                                <th scope="col">ID del vehiculo</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let actual of rute">
+                                <td>{{actual.id}}</td>
+                                <td>{{actual.distance}}</td>
+                                <td>{{actual.count_distribution_centers}}</td>
+                                <td>{{actual.average_time}}</td>
+                                <td>{{actual.contract_id}}</td>
+                                <td>{{actual.vehicle_id}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">Ver</button>
+                                    <button type="button" class="btn btn-success">Actualizar</button>
+                                    <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
