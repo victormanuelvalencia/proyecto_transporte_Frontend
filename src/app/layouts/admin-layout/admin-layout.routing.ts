@@ -39,6 +39,21 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'fees',
         loadChildren: () => import('src/app/pages/fee/fee.module').then(m => m.FeeModule)
+    },
+    {
+        path: 'products',
+        loadChildren: () => import('src/app/pages/product/product.module').then(m => m.ProductModule)
+    },
+    {
+        path: 'lots',
+        loadChildren: () => import('src/app/pages/lot/lot.module').then(m => m.LotModule)
+    },
+    {
+        path: 'sec_address',
+        loadChildren: () => import('src/app/pages/sec_address/sec_address.module').then(m => m.SecAddressModule)
+    },
+    {
+        path: 'dir_list_order',
+        loadChildren: () => import('src/app/pages/dir_list_order/dir_list_order.module').then(m => m.DirListOrderModule)
     }
-   
 ];
