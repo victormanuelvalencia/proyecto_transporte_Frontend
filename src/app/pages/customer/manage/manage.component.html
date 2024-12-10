@@ -1,0 +1,85 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>  
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 *ngIf="mode==1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode==2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode==3" class="mb-0">Actualizar</h3>
+        </div>
+
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+
+            <!-- Campo Id (Solo para visualización) -->
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ customer?.id }}</p>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Teléfono -->
+            <div class="row">
+              <div class="col-4">
+                <label>Teléfono:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="phone" 
+                  [(ngModel)]="customer.phone"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('phone').errors && (theFormGroup.get('phone').dirty || theFormGroup.get('phone').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('phone').errors['required']">El campo teléfono es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('phone').errors['pattern']">El teléfono debe contener solo números enteros.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Dirección -->
+            <div class="row">
+              <div class="col-4">
+                <label>Dirección:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="address" 
+                  [(ngModel)]="customer.address"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('address').errors && (theFormGroup.get('address').dirty || theFormGroup.get('address').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('address').errors['pattern']">La dirección solo debe contener números y el símbolo "+".</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Botones -->
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-8">
+                <button *ngIf="mode==2" class="btn btn-success btn-block" (click)="create()">Crear</button>
+                <button *ngIf="mode==3" class="btn btn-success btn-block" (click)="update()">Actualizar</button>
+              </div>
+            </div>
+            <br />
+            
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
