@@ -1,0 +1,125 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div> 
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 *ngIf="mode==1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode==2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode==3" class="mb-0">Actualizar</h3>
+        </div>
+
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+
+            <!-- Campo Id (Solo para visualización) -->
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ contract.id }}</p>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Fecha de inicio -->
+            <div class="row">
+              <div class="col-4">
+                <label>Fecha de inicio:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="date" 
+                  formControlName="start_date" 
+                  [(ngModel)]="contract.start_date"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('start_date').errors && (theFormGroup.get('start_date').dirty || theFormGroup.get('start_date').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('start_date').errors['required']">Este campo es obligatorio.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Fecha de vencimiento -->
+            <div class="row">
+              <div class="col-4">
+                <label>Fecha cuando termina:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="date" 
+                  formControlName="end_date" 
+                  [(ngModel)]="contract.end_date" 
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('end_date').errors && (theFormGroup.get('end_date').dirty || theFormGroup.get('end_date').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('end_date').errors['required']">Este campo es obligatorio.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Cantidad total -->
+            <div class="row">
+              <div class="col-4">
+                <label>Cantidad total:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="total_amount" 
+                  [(ngModel)]="contract.total_amount"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('total_amount').errors && (theFormGroup.get('total_amount').dirty || theFormGroup.get('total_amount').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('total_amount').errors['required']">Este campo es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('total_amount').errors['pattern']">Debe ser un número válido con hasta 2 decimales.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo ID del cliente -->
+            <div class="row">
+              <div class="col-4">
+                <label>ID del cliente:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="customer_id" 
+                  [(ngModel)]="contract.customer_id"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('customer_id').errors && (theFormGroup.get('customer_id').dirty || theFormGroup.get('customer_id').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('customer_id').errors['pattern']">Debe ser un número entero.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Botones -->
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-8">
+                <button *ngIf="mode==2" class="btn btn-success btn-block" (click)="create()">Crear</button>
+                <button *ngIf="mode==3" class="btn btn-success btn-block" (click)="update()">Actualizar</button>
+              </div>
+            </div>
+            <br />
+            
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

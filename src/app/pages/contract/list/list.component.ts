@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Fee } from 'src/app/models/fee.model';
-import { FeeService } from 'src/app/services/fee.service';
+import { Contract } from 'src/app/models/contract.model';
+import { ContractService } from 'src/app/services/contract.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,10 +10,11 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  fee:Fee[]
+
+  contract:Contract[]
   //inyectamos factureservice
-  constructor(private service:FeeService) { 
-    this.fee=[]
+  constructor(private service:ContractService) { 
+    this.contract=[]
   }
 
   ngOnInit(): void {
@@ -25,9 +26,9 @@ export class ListComponent implements OnInit {
     //el subscribe es similar a un await, pero en el backend, así que va a esperar la respuesta del backend
     //la respuesta es data
     this.service.list().subscribe(data =>{
-      this.fee=data
+      this.contract=data
 
-      console.log(JSON.stringify(this.fee));
+      console.log(JSON.stringify(this.contract));
       
     })
   }

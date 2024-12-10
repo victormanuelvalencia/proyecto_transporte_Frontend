@@ -34,7 +34,7 @@
                 <input 
                   class="form-control" 
                   type="text" 
-                  [formControlName]="'contract_id'" 
+                  formControlName="contract_id" 
                   [(ngModel)]="fee.contract_id"
                 />
                 <br>
@@ -54,7 +54,7 @@
                 <input 
                   class="form-control" 
                   type="text" 
-                  [formControlName]="'amount'" 
+                  formControlName="amount" 
                   [(ngModel)]="fee.amount"
                 />
                 <br>
@@ -75,7 +75,7 @@
                   <input 
                     class="form-control" 
                     type="date" 
-                    [formControlName]="'due_date'" 
+                    formControlName="due_date" 
                     [(ngModel)]="fee.due_date" 
                   />
                   <br>
