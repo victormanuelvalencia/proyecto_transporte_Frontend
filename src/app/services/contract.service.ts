@@ -25,10 +25,10 @@ export class ContractService {
  }
 
  create(contract:Contract):Observable<Contract>{
-   return this.http.post<Contract>(`${environment.MS_NEGOCIO}/contracts`, contract) //eviamos el body
+   return this.http.post<Contract>(`${environment.MS_NEGOCIO}/contracts`, contract) //enviamos el body
  }
 
  update(contract:Contract):Observable<Contract>{
-   return this.http.put<Contract>(`${environment.MS_NEGOCIO}/contracts/${contract.id}`, contract) //eviamos el body
+   return this.http.put<Contract>(`${environment.MS_NEGOCIO}/contracts/${contract.id}`, contract) //enviamos el body
  }
 }
