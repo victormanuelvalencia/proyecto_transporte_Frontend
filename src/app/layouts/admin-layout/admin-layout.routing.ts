@@ -69,11 +69,19 @@ export const AdminLayoutRoutes: Routes = [
         loadChildren: () => import('src/app/pages/customer/customer.module').then(m => m.CustomerModule)
     },
     {
-        path: 'natural-person',
+        path: 'natural-persons',
         loadChildren: () => import('src/app/pages/natural-person/natural-person.module').then(m => m.NaturalPersonModule)
     },
     {
         path: 'operations',
         loadChildren: () => import('src/app/pages/operation/operation.module').then(m => m.OperationModule)
+    },
+    {
+        path: 'driver-vehicles',
+        loadChildren: () => import('src/app/pages/driver-vehicle/driver-vehicle.module').then(m => m.DriverVehicleModule)
+    },
+    {
+        path: 'owner-vehicles',
+        loadChildren: () => import('src/app/pages/owner-vehicle/owner-vehicle.module').then(m => m.OwnerVehicleModule)
     }
 ];
