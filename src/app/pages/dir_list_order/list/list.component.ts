@@ -55,15 +55,15 @@ export class ListComponent implements OnInit {
   }
   
   create() {
-    this.router.navigate(['dirlistorders/create']);
+    this.router.navigate(['dir_list_order/create']);
   }
 
   view(id: number) {
-    this.router.navigate(['dirlistorders/view/'+id]);
+    this.router.navigate(['dir_list_order/view/'+id]);
   }
 
   update(id: number) {
-    this.router.navigate(['dirlistorders/update/'+id]);
+    this.router.navigate(['dir_list_order/update/'+id]);
   }
 }
 

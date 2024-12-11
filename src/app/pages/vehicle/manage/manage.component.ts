@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
@@ -12,10 +13,13 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   mode: number; // 1 -> View. 2 -> Create. 3 -> Update
   vehicle: Vehicle;
+  theFormGroup: FormGroup;
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: VehicleService,
-              private router: Router
+              private router: Router,
+              private theFormBuilder: FormBuilder
+
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
@@ -23,6 +27,7 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.configFormGroup();
     // Esta línea se encarga de tomarle una foto a la ruta y se la asigna a 'currentUrl'
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     // Si la ruta incluye la palabra 'view', se le asigna el modo 1
@@ -41,6 +46,17 @@ export class ManageComponent implements OnInit {
       this.vehicle.id = this.activateRoute.snapshot.params.id;
       this.getVehicle(this.vehicle.id);
     }
+  }
+
+  configFormGroup() {
+    this.theFormGroup = this.theFormBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      description: ['', [Validators.required, Validators.minLength(4)]],
+      price: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      weight: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      lot_id: [0, [Validators.pattern(/^\d+$/)]],
+      customer_id: [0, [Validators.pattern(/^\d+$/)]] // Sin validaciones, opcional
+    });
   }
 
   getVehicle(id: number){
