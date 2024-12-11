@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VehicleRoutingModule } from './vehicle-routing.module';
+import { OperationRoutingModule } from './operation-routing.module';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,9 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    VehicleRoutingModule,
-    FormsModule,
+    OperationRoutingModule,
+    FormsModule, //Esto es para que funcione el ngModule
     ReactiveFormsModule
   ]
 })
-export class VehicleModule { }
+export class OperationModule { }

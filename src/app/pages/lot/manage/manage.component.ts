@@ -19,20 +19,12 @@ export class ManageComponent implements OnInit {
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.lot = {id: 0, total_weight: 0, dir_list_order_id: 0, rute_id: 0};
+    this.lot = {id: 0, total_weight: 0, dir_list_order_id: null, rute_id: null};
   }
-
-  getDriver(id: number) {
-    this.service.view(id).subscribe({
-      next: (data) => {
-        console.log('Datos recibidos del servicio:', data);
-        this.lot = data; // Asignar los datos
-      },
-      error: (err) => {
-        console.error('Error al cargar el lote:', err);
-        Swal.fire("Error", "No se pudo cargar el lote", "error");
-      }
-    });
+  getLot(id: number) {
+    this.service.view(id).subscribe(data => {
+      this.lot = data
+    })
   }
   
   ngOnInit(): void {
@@ -45,9 +37,9 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     const id = this.activateRoute.snapshot.params.id;
-    if (id) {
-      console.log('ID recibido:', id);
-      this.getDriver(id);
+    if (this.activateRoute.snapshot.params.id) {
+      this.lot.id = this.activateRoute.snapshot.params.id;
+      this.getLot(this.lot.id);
     }
   }
   
@@ -55,14 +47,14 @@ export class ManageComponent implements OnInit {
   create() {
     this.service.create(this.lot).subscribe(data => {
       Swal.fire("Completado", "Se ha creado correctamente", "success");
-      this.router.navigate(['Lots/list'])
+      this.router.navigate(['lots/list'])
     })
   }
 
   update(){
     this.service.update(this.lot).subscribe(data => {
       Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
-      this.router.navigate(['Lots/list'])
+      this.router.navigate(['lots/list'])
     })
   }
 }

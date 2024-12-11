@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Rute } from 'src/app/models/rute.model';
-import { RuteService } from 'src/app/services/rute.service';
+import { Operation } from 'src/app/models/operation.model';
+import { OperationService } from 'src/app/services/operation.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,12 +10,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  rute:Rute[]
+
+  operation:Operation[]
   //inyectamos factureservice
-  constructor(private service:RuteService,
+  constructor(private service:OperationService,
               private router:Router
   ) { 
-    this.rute=[]
+    this.operation=[]
   }
 
   ngOnInit(): void {
@@ -27,9 +28,9 @@ export class ListComponent implements OnInit {
     //el subscribe es similar a un await, pero en el backend, así que va a esperar la respuesta del backend
     //la respuesta es data
     this.service.list().subscribe(data =>{
-      this.rute=data
+      this.operation=data
 
-      console.log(JSON.stringify(this.rute));
+      console.log(JSON.stringify(this.operation));
       
     })
   }
@@ -37,8 +38,8 @@ export class ListComponent implements OnInit {
   delete(id:number){
     console.log("Eliminando a ", id);
       Swal.fire({
-      title: 'Eliminar la ruta',
-      text: "Está seguro que quiere eliminar la ruta?",
+      title: 'Eliminar la operacion',
+      text: "Está seguro que quiere eliminar la operacion?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -51,7 +52,7 @@ export class ListComponent implements OnInit {
       subscribe(data => {
       Swal.fire(
       'Eliminado!',
-      'la ruta ha sido eliminada correctamente',
+      'la operacion ha sido eliminada correctamente',
       'success'
       )
       this.ngOnInit(); //esto es para refescar, pero ciertos elementos y no toda la pagiba
@@ -61,10 +62,11 @@ export class ListComponent implements OnInit {
   }
 
   view(id: number) {
-    this.router.navigate(['rutes/view/'+id]);
+    this.router.navigate(['operations/view/'+id]);
   }
 
   update(id: number) {
-    this.router.navigate(['rutes/update/'+id]);
+    this.router.navigate(['operations/update/'+id]);
   }
+
 }

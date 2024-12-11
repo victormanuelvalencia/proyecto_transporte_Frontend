@@ -14,21 +14,21 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Distancia</th>
-                                <th scope="col">Cantidad de centros de distribución</th>
-                                <th scope="col">Tiempo promedio</th>
-                                <th scope="col">ID del contrato</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Tipo de operacion</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">ID del municipio</th>
                                 <th scope="col">ID del vehiculo</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let actual of rute">
+                            <tr *ngFor="let actual of operation">
                                 <td>{{actual.id}}</td>
-                                <td>{{actual.distance}}</td>
-                                <td>{{actual.count_distribution_centers}}</td>
-                                <td>{{actual.average_time}}</td>
-                                <td>{{actual.contract_id}}</td>
+                                <td>{{actual.date}}</td>
+                                <td>{{actual.operation_type}}</td>
+                                <td>{{actual.state}}</td>
+                                <td>{{actual.municipality_id}}</td>
                                 <td>{{actual.vehicle_id}}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary" (click)="view(actual.id)">Ver</button>

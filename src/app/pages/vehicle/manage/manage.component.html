@@ -1,55 +1,108 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-   
-</div>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>  
 <!-- Page content -->
 <div class="container-fluid mt--7">
-    <!-- Table -->
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header bg-transparent">
-                    <h1 *ngIf="mode==1">Visualizar</h1>
-                    <h1 *ngIf="mode==2">Crear</h1>
-                    <h1 *ngIf="mode==3">Actualizar</h1>
-                </div>
-                <div class="card-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">
-                                ID:
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="vehicle.id" disabled>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Matrícula:
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="vehicle.license_plate" [disabled]="mode==1">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Tipo de vehículo:
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="vehicle.type_vehicle" [disabled]="mode==1">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                          
-                            </div>
-                            <div class="col-8">
-                                <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Crear</button>
-                                <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Actualizar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 *ngIf="mode==1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode==2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode==3" class="mb-0">Actualizar</h3>
         </div>
+
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+
+            <!-- Campo Id (Solo para visualización) -->
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ vehicle.id }}</p>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo License Plate -->
+            <div class="row">
+              <div class="col-4">
+                <label>Placa del Vehículo:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="license_plate" 
+                  [(ngModel)]="vehicle.license_plate"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('license_plate').errors && (theFormGroup.get('license_plate').dirty || theFormGroup.get('license_plate').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('license_plate').errors['required']">El campo placa es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('license_plate').errors['pattern']">La placa solo debe contener letras mayúsculas, números y guiones.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Tipo de Vehículo -->
+            <div class="row">
+              <div class="col-4">
+                <label>Tipo de Vehículo:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="type_vehicle" 
+                  [(ngModel)]="vehicle.type_vehicle"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('type_vehicle').errors && (theFormGroup.get('type_vehicle').dirty || theFormGroup.get('type_vehicle').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('type_vehicle').errors['required']">El campo tipo de vehículo es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('type_vehicle').errors['pattern']">El tipo de vehículo debe ser uno de los siguientes: carro, camion, motocicleta, bicicleta, bus.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Capacidad de Carga -->
+            <div class="row">
+              <div class="col-4">
+                <label>Capacidad de Carga:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="number" 
+                  formControlName="max_load_capacity" 
+                  [(ngModel)]="vehicle.max_load_capacity"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('max_load_capacity').errors && (theFormGroup.get('max_load_capacity').dirty || theFormGroup.get('max_load_capacity').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('max_load_capacity').errors['required']">El campo capacidad de carga es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('max_load_capacity').errors['min']">La capacidad de carga debe ser al menos 1.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('max_load_capacity').errors['pattern']">La capacidad de carga debe ser un número entero positivo.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Botones -->
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-8">
+                <button *ngIf="mode==2" class="btn btn-success btn-block" (click)="create()">Crear</button>
+                <button *ngIf="mode==3" class="btn btn-success btn-block" (click)="update()">Actualizar</button>
+              </div>
+            </div>
+            <br />
+            
+          </div>
+        </form>
+
+      </div>
     </div>
+  </div>
 </div>
