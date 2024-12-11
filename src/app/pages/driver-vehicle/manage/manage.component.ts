@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Driver } from 'src/app/models/driver.model';
-import { DriverService } from 'src/app/services/driver.service';
+import { DriverVehicle } from 'src/app/models/driver-vehicle.model';
+import { DriverVehicleService } from 'src/app/services/driver-vehicle.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,22 +11,22 @@ import Swal from 'sweetalert2';
 })
 export class ManageComponent implements OnInit {
   mode: number; // 1 -> View. 2 -> Create. 3 -> Update
-  driver: Driver;
+  driver_vehicle: DriverVehicle;
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
-              private service: DriverService,
+              private service: DriverVehicleService,
               private router: Router
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.driver = {id: 0, license_number: "", license_expiry: null, user_id: ""};
+    this.driver_vehicle = {id: 0, owner_id: 0, driver_id: 0, vehicle_id: 0};
   }
 
-  getDriver(id: number) {
+  getDriverVehicle(id: number) {
     this.service.view(id).subscribe({
       next: (data) => {
         console.log('Datos recibidos del servicio:', data);
-        this.driver = data; // Asignar los datos
+        this.driver_vehicle = data; // Asignar los datos
       },
       error: (err) => {
         console.error('Error al cargar el conductor:', err);
@@ -47,23 +47,22 @@ export class ManageComponent implements OnInit {
     const id = this.activateRoute.snapshot.params.id;
     if (id) {
       console.log('ID recibido:', id);
-      this.getDriver(id);
+      this.getDriverVehicle(id);
     }
   }
   
 
   create() {
-    this.service.create(this.driver).subscribe(data => {
+    this.service.create(this.driver_vehicle).subscribe(data => {
       Swal.fire("Completado", "Se ha creado correctamente", "success");
-      this.router.navigate(['drivers/list'])
+      this.router.navigate(['driver-vehicles/list'])
     })
   }
 
   update(){
-    this.service.update(this.driver).subscribe(data => {
+    this.service.update(this.driver_vehicle).subscribe(data => {
       Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
-      this.router.navigate(['drivers/list'])
+      this.router.navigate(['driver-vehicles/list'])
     })
   }
 }
-
