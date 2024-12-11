@@ -75,5 +75,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'driver-vehicles',
         loadChildren: () => import('src/app/pages/driver-vehicle/driver-vehicle.module').then(m => m.DriverVehicleModule)
+    },
+    {
+        path: 'owner-vehicles',
+        loadChildren: () => import('src/app/pages/owner-vehicle/owner-vehicle.module').then(m => m.OwnerVehicleModule)
     }
 ];
