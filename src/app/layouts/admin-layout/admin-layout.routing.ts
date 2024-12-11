@@ -73,6 +73,10 @@ export const AdminLayoutRoutes: Routes = [
         loadChildren: () => import('src/app/pages/natural-person/natural-person.module').then(m => m.NaturalPersonModule)
     },
     {
+        path: 'operations',
+        loadChildren: () => import('src/app/pages/operation/operation.module').then(m => m.OperationModule)
+    },
+    {
         path: 'driver-vehicles',
         loadChildren: () => import('src/app/pages/driver-vehicle/driver-vehicle.module').then(m => m.DriverVehicleModule)
     },

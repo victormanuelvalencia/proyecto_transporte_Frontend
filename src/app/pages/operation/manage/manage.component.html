@@ -1,0 +1,141 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div> 
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 *ngIf="mode==1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode==2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode==3" class="mb-0">Actualizar</h3>
+        </div>
+
+        <form class="form" [formGroup]="theFormGroup">
+          <div class="card-body">
+
+            <!-- Campo Id (Solo para visualización) -->
+            <div class="row">
+              <div class="col-4">
+                <label>Id:</label>
+              </div>
+              <div class="col-8">
+                <p>{{ operation.id }}</p>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Date -->
+            <div class="row">
+              <div class="col-4">
+                <label>Fecha:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="date" 
+                  [(ngModel)]="operation.date"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('date').errors && (theFormGroup.get('date').dirty || theFormGroup.get('date').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('date').errors['required']">Este campo es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('date').errors['pattern']">El formato debe ser YYYY-MM-DD.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Operation Type -->
+            <div class="row">
+              <div class="col-4">
+                <label>Tipo de Operación:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="operation_type" 
+                  [(ngModel)]="operation.operation_type"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('operation_type').errors && (theFormGroup.get('operation_type').dirty || theFormGroup.get('operation_type').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('operation_type').errors['required']">Este campo es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('operation_type').errors['minlength']">Mínimo de 3 caracteres.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('operation_type').errors['maxlength']">Máximo de 50 caracteres.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo State -->
+            <div class="row">
+              <div class="col-4">
+                <label>Estado:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  formControlName="state" 
+                  [(ngModel)]="operation.state"
+                />
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Municipality ID -->
+            <div class="row">
+              <div class="col-4">
+                <label>ID del Municipio:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="municipality_id" 
+                  [(ngModel)]="operation.municipality_id"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('municipality_id').errors && (theFormGroup.get('municipality_id').dirty || theFormGroup.get('municipality_id').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('municipality_id').errors['pattern']">Debe ser un número entero.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Vehicle ID -->
+            <div class="row">
+              <div class="col-4">
+                <label>ID del Vehículo:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="vehicle_id" 
+                  [(ngModel)]="operation.vehicle_id"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('vehicle_id').errors && (theFormGroup.get('vehicle_id').dirty || theFormGroup.get('vehicle_id').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('vehicle_id').errors['pattern']">Debe ser un número entero.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Botones -->
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-8">
+                <button *ngIf="mode==2" class="btn btn-success btn-block" (click)="create()">Crear</button>
+                <button *ngIf="mode==3" class="btn btn-success btn-block" (click)="update()">Actualizar</button>
+              </div>
+            </div>
+            <br />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

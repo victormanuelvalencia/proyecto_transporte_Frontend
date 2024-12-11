@@ -22,10 +22,10 @@ export class ManageComponent implements OnInit {
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.product = {id: 0, name: '', description: '', price: 0, weight: 0, lot_id: 0, customer_id: 0};
+    this.product = {id: 0, name: '', description: '', price: 0, weight: 0, lot_id: null, customer_id: null};
   }
 
-  getDriver(id: number) {
+  getProduct(id: number) {
     this.service.view(id).subscribe({
       next: (data) => {
         console.log('Datos recibidos del servicio:', data);
@@ -49,9 +49,9 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     const id = this.activateRoute.snapshot.params.id;
-    if (id) {
-      console.log('ID recibido:', id);
-      this.getDriver(id);
+    if (this.activateRoute.snapshot.params.id) {
+      this.product.id = this.activateRoute.snapshot.params.id;
+      this.getProduct(this.product.id);
     }
   }
   
