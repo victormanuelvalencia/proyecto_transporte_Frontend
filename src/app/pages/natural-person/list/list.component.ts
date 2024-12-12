@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NaturalPerson } from 'src/app/models/natural-person.model';
 
 import { NaturalPersonService } from 'src/app/services/natural-person.service';
@@ -14,7 +15,7 @@ export class ListComponent implements OnInit {
 
   naturalPerson:NaturalPerson[]
   //inyectamos factureservice
-  constructor(private service:NaturalPersonService) { 
+  constructor(private service:NaturalPersonService,private router: Router) { 
     this.naturalPerson=[]
   }
 
@@ -58,5 +59,17 @@ export class ListComponent implements OnInit {
       });
       }
       })
+  }
+
+  create() {
+    this.router.navigate(['natural-persons/create']);
+  }
+
+  view(id: number) {
+    this.router.navigate(['natural-persons/view/'+id]);
+  }
+
+  update(id: number) {
+    this.router.navigate(['natural-persons/update/'+id]);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Contract } from 'src/app/models/contract.model';
 import { ContractService } from 'src/app/services/contract.service';
 import Swal from 'sweetalert2';
@@ -13,7 +14,7 @@ export class ListComponent implements OnInit {
 
   contract:Contract[]
   //inyectamos factureservice
-  constructor(private service:ContractService) { 
+  constructor(private service:ContractService, private router: Router) { 
     this.contract=[]
   }
 
@@ -57,5 +58,17 @@ export class ListComponent implements OnInit {
       });
       }
       })
+  }
+
+  create() {
+    this.router.navigate(['contracts/create']);
+  }
+
+  view(id: number) {
+    this.router.navigate(['contracts/view/'+id]);
+  }
+
+  update(id: number) {
+    this.router.navigate(['contracts/update/'+id]);
   }
 }

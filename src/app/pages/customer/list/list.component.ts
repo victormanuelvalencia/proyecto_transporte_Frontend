@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import Swal from 'sweetalert2';
@@ -14,7 +15,7 @@ export class ListComponent implements OnInit {
 
   customer:Customer[]
   //inyectamos factureservice
-  constructor(private service:CustomerService) { 
+  constructor(private service:CustomerService, private router: Router) { 
     this.customer=[]
   }
 
@@ -58,6 +59,18 @@ export class ListComponent implements OnInit {
       });
       }
       })
+  }
+
+  create() {
+    this.router.navigate(['customers/create']);
+  }
+
+  view(id: number) {
+    this.router.navigate(['customers/view/'+id]);
+  }
+
+  update(id: number) {
+    this.router.navigate(['customers/update/'+id]);
   }
 
 }

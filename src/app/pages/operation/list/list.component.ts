@@ -61,6 +61,10 @@ export class ListComponent implements OnInit {
       })
   }
 
+  create() {
+    this.router.navigate(['operations/create']);
+  }
+
   view(id: number) {
     this.router.navigate(['operations/view/'+id]);
   }
