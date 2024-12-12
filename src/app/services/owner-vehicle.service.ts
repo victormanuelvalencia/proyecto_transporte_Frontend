@@ -12,22 +12,22 @@ export class OwnerVehicleService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<OwnerVehicle[]> {
-    return this.http.get<OwnerVehicle[]>(`${environment.MS_NEGOCIO}/owner-vehicles`);
+    return this.http.get<OwnerVehicle[]>(`${environment.MS_NEGOCIO}/ownerVehicles`);
   }
 
   delete(id: number) {
-    return this.http.delete<OwnerVehicle>(`${environment.MS_NEGOCIO}/owner-vehicles/${id}`); 
+    return this.http.delete<OwnerVehicle>(`${environment.MS_NEGOCIO}/ownerVehicles/${id}`); 
   }
   
   view(id: number): Observable<OwnerVehicle> {
-    return this.http.get<OwnerVehicle>(`${environment.MS_NEGOCIO}/owner-vehicles/${id}`);
+    return this.http.get<OwnerVehicle>(`${environment.MS_NEGOCIO}/ownerVehicles/${id}`);
   }
   
   create(OwnerVehicle: OwnerVehicle): Observable<OwnerVehicle> {
-    return this.http.post<OwnerVehicle>(`${environment.MS_NEGOCIO}/owner-vehicles`, OwnerVehicle);
+    return this.http.post<OwnerVehicle>(`${environment.MS_NEGOCIO}/ownerVehicles`, OwnerVehicle);
   }
   
   update(OwnerVehicle: OwnerVehicle): Observable<OwnerVehicle> {
-    return this.http.put<OwnerVehicle>(`${environment.MS_NEGOCIO}/owner-vehicles/${OwnerVehicle.id}`, OwnerVehicle);
+    return this.http.put<OwnerVehicle>(`${environment.MS_NEGOCIO}/ownerVehicles/${OwnerVehicle.id}`, OwnerVehicle);
   }  
 }

@@ -14,21 +14,21 @@ export class FeeService {
    //El observable espera a que venga la peticion del microservicio
    list(): Observable<Fee[]> {
     //llamamos al servicio de negocio por medio de las variables de entorno
-    return this.http.get<Fee[]>(`${environment.MS_NEGOCIO}/fees`);
+    return this.http.get<Fee[]>(`${environment.MS_NEGOCIO}/Fees`);
   }
 
   view(id:number): Observable<Fee> {
-    return this.http.get<Fee>(`${environment.MS_NEGOCIO}/fees/${id}`);
+    return this.http.get<Fee>(`${environment.MS_NEGOCIO}/Fees/${id}`);
   }
   delete(id: number): Observable<Fee> {
-    return this.http.delete<Fee>(`${environment.MS_NEGOCIO}/fees/${id}`);
+    return this.http.delete<Fee>(`${environment.MS_NEGOCIO}/Fees/${id}`);
   }
 
   create(fee:Fee):Observable<Fee>{
-    return this.http.post<Fee>(`${environment.MS_NEGOCIO}/fees`, fee) //eviamos el body
+    return this.http.post<Fee>(`${environment.MS_NEGOCIO}/Fees`, fee) //eviamos el body
   }
 
   update(fee:Fee):Observable<Fee>{
-    return this.http.put<Fee>(`${environment.MS_NEGOCIO}/fees/${fee.id}`, fee) //eviamos el body
+    return this.http.put<Fee>(`${environment.MS_NEGOCIO}/Fees/${fee.id}`, fee) //eviamos el body
   }
 }

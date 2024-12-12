@@ -3,6 +3,6 @@ export class Operation {
     date:string;
     operation_type:string;
     state:boolean;
-    municipality_id:number;
-    vehicle_id:number;
+    municipality_id?:number;
+    vehicle_id?:number;
 }

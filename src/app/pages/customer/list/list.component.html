@@ -25,6 +25,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Numero de celular</th>
                                 <th scope="col">Dirección</th>
                             </tr>
@@ -32,6 +34,8 @@
                         <tbody>
                             <tr *ngFor="let actual of customer">
                                 <td>{{actual.id}}</td>
+                                <td>{{actual.name}}</td>
+                                <td>{{actual.email}}</td>
                                 <td>{{actual.phone}}</td>
                                 <td>{{actual.address}}</td>
                                 <td>

@@ -14,21 +14,21 @@ export class NaturalPersonService {
   //El observable espera a que venga la peticion del microservicio
   list(): Observable<NaturalPerson[]> {
    //llamamos al servicio de negocio por medio de las variables de entorno
-   return this.http.get<NaturalPerson[]>(`${environment.MS_NEGOCIO}/natural-person`);
+   return this.http.get<NaturalPerson[]>(`${environment.MS_NEGOCIO}/NaturalPeople`);
  }
 
  view(id:number): Observable<NaturalPerson> {
-   return this.http.get<NaturalPerson>(`${environment.MS_NEGOCIO}/natural-person/${id}`);
+   return this.http.get<NaturalPerson>(`${environment.MS_NEGOCIO}/NaturalPeople/${id}`);
  }
  delete(id: number): Observable<NaturalPerson> {
-   return this.http.delete<NaturalPerson>(`${environment.MS_NEGOCIO}/natural-person/${id}`);
+   return this.http.delete<NaturalPerson>(`${environment.MS_NEGOCIO}/NaturalPeople/${id}`);
  }
 
  create(naturalperson:NaturalPerson):Observable<NaturalPerson>{
-   return this.http.post<NaturalPerson>(`${environment.MS_NEGOCIO}/natural-person`, naturalperson) //enviamos el body
+   return this.http.post<NaturalPerson>(`${environment.MS_NEGOCIO}/NaturalPeople`, naturalperson) //enviamos el body
  }
 
  update(naturalperson:NaturalPerson):Observable<NaturalPerson>{
-   return this.http.put<NaturalPerson>(`${environment.MS_NEGOCIO}/natural-person/${naturalperson.id}`, naturalperson) //enviamos el body
+   return this.http.put<NaturalPerson>(`${environment.MS_NEGOCIO}/NaturalPeople/${naturalperson.id}`, naturalperson) //enviamos el body
  }
 }
