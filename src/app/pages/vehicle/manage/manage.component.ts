@@ -23,7 +23,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.mode = 0;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.vehicle = {id: 0, license_plate: "", type_vehicle: "", max_load_capacity: 0};
+    this.vehicle = {id: 0, license_plate: "", type_vehicle: ""};
     this.trySend = false;
   }
 
@@ -64,14 +64,6 @@ export class ManageComponent implements OnInit {
         [
           Validators.required, 
           Validators.pattern(/^(carro|camion|motocicleta|bicicleta|bus)$/i) // Solo permite ciertos valores (puedes personalizar esta lista)
-        ]
-      ],
-      max_load_capacity: [
-        '', 
-        [
-          Validators.required, 
-          Validators.min(1), // El valor mínimo permitido es 1
-          Validators.pattern(/^\d+$/) // Solo permite números enteros positivos
         ]
       ]
     });

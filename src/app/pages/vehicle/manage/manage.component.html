@@ -67,28 +67,6 @@
             </div>
             <br />
 
-            <!-- Campo Capacidad de Carga -->
-            <div class="row">
-              <div class="col-4">
-                <label>Capacidad de Carga:</label>
-              </div>
-              <div class="col-8">
-                <input 
-                  class="form-control" 
-                  type="number" 
-                  formControlName="max_load_capacity" 
-                  [(ngModel)]="vehicle.max_load_capacity"
-                />
-                <br>
-                <div *ngIf="theFormGroup.get('max_load_capacity').errors && (theFormGroup.get('max_load_capacity').dirty || theFormGroup.get('max_load_capacity').touched || trySend)">
-                  <small class="msnError" *ngIf="theFormGroup.get('max_load_capacity').errors['required']">El campo capacidad de carga es obligatorio.</small>
-                  <small class="msnError" *ngIf="theFormGroup.get('max_load_capacity').errors['min']">La capacidad de carga debe ser al menos 1.</small>
-                  <small class="msnError" *ngIf="theFormGroup.get('max_load_capacity').errors['pattern']">La capacidad de carga debe ser un número entero positivo.</small>
-                </div>
-              </div>
-            </div>
-            <br />
-
             <!-- Botones -->
             <div class="row">
               <div class="col-4"></div>

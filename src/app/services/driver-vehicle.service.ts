@@ -13,22 +13,22 @@ export class DriverVehicleService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<DriverVehicle[]> {
-    return this.http.get<DriverVehicle[]>(`${environment.MS_NEGOCIO}/driverVehicles`);
+    return this.http.get<DriverVehicle[]>(`${environment.MS_NEGOCIO}/driver-vehicles`);
   }
 
   delete(id: number) {
-    return this.http.delete<DriverVehicle>(`${environment.MS_NEGOCIO}/driverVehicles/${id}`); 
+    return this.http.delete<DriverVehicle>(`${environment.MS_NEGOCIO}/driver-vehicles/${id}`); 
   }
 
   view(id: number): Observable<DriverVehicle> {
-    return this.http.get<DriverVehicle>(`${environment.MS_NEGOCIO}/driverVehicles/${id}`);
+    return this.http.get<DriverVehicle>(`${environment.MS_NEGOCIO}/driver-vehicles/${id}`);
   }
 
   create(driverVehicle: DriverVehicle): Observable<DriverVehicle> {
-    return this.http.post<DriverVehicle>(`${environment.MS_NEGOCIO}/driverVehicles`, driverVehicle);
+    return this.http.post<DriverVehicle>(`${environment.MS_NEGOCIO}/driver-vehicles`, driverVehicle);
   }
   
   update(driverVehicle: DriverVehicle): Observable<DriverVehicle> {
-    return this.http.put<DriverVehicle>(`${environment.MS_NEGOCIO}/driverVehicles/${driverVehicle.id}`, driverVehicle);
+    return this.http.put<DriverVehicle>(`${environment.MS_NEGOCIO}/driver-vehicles/${driverVehicle.id}`, driverVehicle);
   }  
 }
