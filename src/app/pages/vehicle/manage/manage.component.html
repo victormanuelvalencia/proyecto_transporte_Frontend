@@ -10,20 +10,24 @@
           <h3 *ngIf="mode==2" class="mb-0">Crear</h3>
           <h3 *ngIf="mode==3" class="mb-0">Actualizar</h3>
         </div>
-
         <form class="form" [formGroup]="theFormGroup">
           <div class="card-body">
 
             <!-- Campo Id (Solo para visualización) -->
             <div class="row">
               <div class="col-4">
-                <label>Id:</label>
+                <label>ID:</label>
               </div>
               <div class="col-8">
-                <p>{{ vehicle.id }}</p>
+                <input type="text"
+                  class="form-control"
+                  [(ngModel)]="vehicle.id" 
+                  disabled
+                >
+                <br>
               </div>
             </div>
-            <br />
+            <br>
 
             <!-- Campo License Plate -->
             <div class="row">
@@ -36,9 +40,12 @@
                   type="text" 
                   formControlName="license_plate" 
                   [(ngModel)]="vehicle.license_plate"
+                  [ngClass]="{'is-invalid': theFormGroup.get('license_plate').errors && (theFormGroup.get('license_plate').dirty || theFormGroup.get('license_plate').touched || trySend)}"
                 />
                 <br>
-                <div *ngIf="theFormGroup.get('license_plate').errors && (theFormGroup.get('license_plate').dirty || theFormGroup.get('license_plate').touched || trySend)">
+                <div *ngIf="theFormGroup.get('license_plate').errors && (theFormGroup.get('license_plate').dirty || theFormGroup.get('license_plate').touched || trySend)"
+                  class="invalid-feedback"
+                >
                   <small class="msnError" *ngIf="theFormGroup.get('license_plate').errors['required']">El campo placa es obligatorio.</small>
                   <small class="msnError" *ngIf="theFormGroup.get('license_plate').errors['pattern']">La placa solo debe contener letras mayúsculas, números y guiones.</small>
                 </div>
@@ -57,11 +64,14 @@
                   type="text" 
                   formControlName="type_vehicle" 
                   [(ngModel)]="vehicle.type_vehicle"
+                  [ngClass]="{'is-invalid': theFormGroup.get('license_plate').errors && (theFormGroup.get('license_plate').dirty || theFormGroup.get('license_plate').touched || trySend)}"
                 />
                 <br>
-                <div *ngIf="theFormGroup.get('type_vehicle').errors && (theFormGroup.get('type_vehicle').dirty || theFormGroup.get('type_vehicle').touched || trySend)">
+                <div *ngIf="theFormGroup.get('type_vehicle').errors && (theFormGroup.get('type_vehicle').dirty || theFormGroup.get('type_vehicle').touched || trySend)"
+                  class="invalid-feedback"
+                >
                   <small class="msnError" *ngIf="theFormGroup.get('type_vehicle').errors['required']">El campo tipo de vehículo es obligatorio.</small>
-                  <small class="msnError" *ngIf="theFormGroup.get('type_vehicle').errors['pattern']">El tipo de vehículo debe ser uno de los siguientes: carro, camion, motocicleta, bicicleta, bus.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('type_vehicle').errors['pattern']">El tipo de vehículo debe ser uno de los siguientes: Automóvil, Camión, Motocicleta, Bicicleta o Bus.</small>
                 </div>
               </div>
             </div>
@@ -79,7 +89,6 @@
             
           </div>
         </form>
-
       </div>
     </div>
   </div>

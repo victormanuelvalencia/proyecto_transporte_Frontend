@@ -1,5 +1,4 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-   
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
@@ -12,63 +11,127 @@
                     <h1 *ngIf="mode==2">Crear</h1>
                     <h1 *ngIf="mode==3">Actualizar</h1>
                 </div>
-                <div class="card-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">
-                                ID:
+                <form class="form" [formGroup]="theFormGroup">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    ID:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text"
+                                        class="form-control"
+                                        [(ngModel)]="owner.id" 
+                                        disabled
+                                    >
+                                    <br>
+                                </div>
                             </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="owner.id" disabled>
+                            <br>
+                            <div class="row">
+                                <div class="col-4">
+                                    Número de licencia:
+                                </div>
+                                <div class="col-8">
+                                    <input 
+                                        type="text"
+                                        class="form-control"
+                                        [(ngModel)]="owner.license_number"
+                                        [disabled]="mode==1"
+                                        formControlName="license_number" 
+                                        [(ngModel)]="owner.license_number"
+                                        [ngClass]="{'is-invalid': theFormGroup.get('license_number').errors && (theFormGroup.get('license_number').dirty || theFormGroup.get('license_number').touched || trySend)}"
+                                    >
+                                    <br>
+                                    <div *ngIf="theFormGroup.get('license_number').errors && (theFormGroup.get('license_number').dirty || theFormGroup.get('license_number').touched || trySend)"
+                                        class="invalid-feedback"
+                                    >
+                                      <small class="msnError" *ngIf="theFormGroup.get('license_number').errors['required']">El campo número de licencia es obligatorio.</small>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Número de licencia:
+                            <br>
+                            <div class="row">
+                                <div class="col-4">
+                                    Expiración de licencia:
+                                </div>
+                                <div class="col-8">
+                                    <input 
+                                        type="date"
+                                        class="form-control"
+                                        [(ngModel)]="owner.license_expiry"
+                                        [disabled]="mode==1"
+                                        formControlName="license_expiry" 
+                                        [(ngModel)]="owner.license_expiry"
+                                        [ngClass]="{'is-invalid': theFormGroup.get('license_expiry').errors && (theFormGroup.get('license_expiry').dirty || theFormGroup.get('license_expiry').touched || trySend)}"
+                                    >
+                                    <br>
+                                    <div *ngIf="theFormGroup.get('license_expiry').errors && (theFormGroup.get('license_expiry').dirty || theFormGroup.get('license_expiry').touched || trySend)"
+                                        class="invalid-feedback"
+                                    >
+                                        <small class="msnError" *ngIf="theFormGroup.get('license_expiry').errors['required']">La fecha de expiración es obligatoria.</small>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="owner.license_number" [disabled]="mode==1">
+                            <br>
+                            <div class="row">
+                                <div class="col-4">
+                                    Rating:
+                                </div>
+                                <div class="col-8">
+                                    <input 
+                                        type="number"
+                                        class="form-control"
+                                        [(ngModel)]="owner.rating"
+                                        [disabled]="mode==1"
+                                        formControlName="rating" 
+                                        [(ngModel)]="owner.rating"
+                                        [ngClass]="{'is-invalid': theFormGroup.get('rating').errors && (theFormGroup.get('rating').dirty || theFormGroup.get('rating').touched || trySend)}"
+                                    >
+                                    <br>
+                                    <div *ngIf="theFormGroup.get('rating').errors && (theFormGroup.get('rating').dirty || theFormGroup.get('rating').touched || trySend)"
+                                        class="invalid-feedback"
+                                    >
+                                        <small class="msnError" *ngIf="theFormGroup.get('rating').errors['required']">La calificación es obligatoria.</small>
+                                        <small class="msnError" *ngIf="theFormGroup.get('rating').errors['min']">La calificación debe ser al menos 1.</small>
+                                        <small class="msnError" *ngIf="theFormGroup.get('rating').errors['max']">La calificación no puede ser mayor a 10.</small>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Expiración de licencia:
+                            <br>
+                            <div class="row">
+                                <div class="col-4">
+                                    ID de Usuario:
+                                </div>
+                                <div class="col-8">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        [(ngModel)]="owner.user_id" 
+                                        [disabled]="mode !== 2"
+                                        formControlName="user_id" 
+                                        [(ngModel)]="owner.user_id"
+                                        [ngClass]="{'is-invalid': theFormGroup.get('user_id').errors && (theFormGroup.get('user_id').dirty || theFormGroup.get('user_id').touched || trySend)}"
+                                    >
+                                    <div *ngIf="theFormGroup.get('user_id').errors && (theFormGroup.get('user_id').dirty || theFormGroup.get('user_id').touched || trySend)"
+                                        class="invalid-feedback">
+                                        <small class="msnError" *ngIf="theFormGroup.get('user_id').errors['pattern']">El ID de usuario solo puede contener letras y números, con un máximo de 30 caracteres.</small>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-8">
-                                <input type="date" class="form-control" [(ngModel)]="owner.license_expiry" [disabled]="mode==1">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Rating:
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="owner.rating" [disabled]="mode==1">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                ID de Usuario:
-                            </div>
-                            <div class="col-8">
-                                <input 
-                                type="text" 
-                                class="form-control" 
-                                [(ngModel)]="owner.user_id" 
-                                [disabled]="mode !== 2">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                          
-                            </div>
-                            <div class="col-8">
-                                <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Crear</button>
-                                <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Actualizar</button>
+                            <br>
+                            <div class="row">
+                                <div class="col-4">           
+                                </div>
+                                <div class="col-8">
+                                    <br>
+                                    <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Crear</button>
+                                    <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Actualizar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

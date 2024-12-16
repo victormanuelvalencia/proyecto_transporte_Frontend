@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Owner } from 'src/app/models/owner.model';
 import { OwnerService } from 'src/app/services/owner.service';
@@ -12,17 +13,46 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   mode: number; // 1 -> View. 2 -> Create. 3 -> Update
   owner: Owner;
+  theFormGroup: FormGroup;
+  trySend: boolean;
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: OwnerService,
-              private router: Router
+              private router: Router,
+              private theFormBuilder: FormBuilder
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.owner = {id: 0, license_expiry: "", license_number: "", user_id: "", rating: 0};
+    this.owner = {id: 0, license_expiry: "", license_number: "", user_id: "", rating: null};
+    this.trySend = false;
+  }
+
+  configFormGroup(){
+    // Primer elemento del vector: Valor por defecto
+    // Lista: Reglas 
+    this.theFormGroup = this.theFormBuilder.group({
+      license_expiry: ['', [Validators.required]],
+      license_number: [
+        '', 
+        [Validators.required, Validators.pattern(/^[0-9]{5,30}$/)] // Solo números, entre 5 y 30 dígitos
+      ],
+      user_id: [
+        '', 
+        [Validators.pattern(/^[a-zA-Z0-9]{0,30}$/)] // Letras y números, máximo 30 caracteres
+      ],
+      rating: [
+        '', 
+        [Validators.required, Validators.min(1), Validators.max(10)] // Número entre 1 y 10
+      ]
+    });
+  } 
+      
+  get getTheFormGroup(){
+    return this.theFormGroup.controls
   }
 
   ngOnInit(): void {
+    this.configFormGroup();
     // Esta línea se encarga de tomarle una foto a la ruta y se la asigna a 'currentUrl'
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     // Si la ruta incluye la palabra 'view', se le asigna el modo 1
@@ -50,16 +80,26 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
+    this.trySend = true;
+    if(this.theFormGroup.invalid) {
+      Swal.fire("Error", "Por favor llene correctamente los campos", "error")
+    } else {
     this.service.create(this.owner).subscribe(data => {
-      Swal.fire("Completado", "Se ha creado correctamente", "success");
-      this.router.navigate(['owners/list'])
-    })
+        Swal.fire("Completado", "Se ha creado correctamente", "success");
+        this.router.navigate(['owners/list'])
+      })
+    }
   }
 
   update(){
-    this.service.update(this.owner).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
-      this.router.navigate(['owners/list'])
-    })
+    this.trySend = true;
+    if(this.theFormGroup.invalid) {
+      Swal.fire("Error", "Por favor llene correctamente los campos", "error")
+    } else {
+      this.service.update(this.owner).subscribe(data => {
+        Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
+        this.router.navigate(['owners/list'])
+      })
+    }
   }
 }
