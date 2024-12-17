@@ -12,7 +12,9 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   theUser: User;
 
-  constructor(private service: SecurityService) {
+  constructor(private service: SecurityService,
+              private router: Router
+  ) {
     this.theUser = {
       email: '',
       password: '',
@@ -25,6 +27,7 @@ export class LoginComponent {
       next: (data) => {
         console.log("RESPUESTA " + JSON.stringify(data));
         this.service.saveSession(data);
+        this.router.navigate(["dashboard"])
       },
       error: (error) => {
         console.log(error)

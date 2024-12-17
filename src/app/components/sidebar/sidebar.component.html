@@ -89,13 +89,15 @@
       </form>
       <!-- Navigation -->
       <ul class="navbar-nav">
-          <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-              <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
-                  <i class="ni {{menuItem.icon}}"></i>
-                  {{menuItem.title}}
-              </a>
-          </li>
+        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+          <a *ngIf="menuItem.class=='2' || (getTheSecurityService().existSession()?'1':'0')==menuItem.class"
+            routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+            <i class="ni {{menuItem.icon}}"></i>
+            {{menuItem.title}}
+          </a>
+        </li>
       </ul>
+
       <!-- Divider -->
       <hr class="my-3">
       <!-- Heading -->

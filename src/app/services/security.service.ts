@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SecurityService {
-
+  // "Variable famosa": Los que se suscriban a él se van a dar cuenta de los cambios
   theUser = new BehaviorSubject<User>(new User); 
   constructor(private http: HttpClient) { 
     this.verifyActualSession()
