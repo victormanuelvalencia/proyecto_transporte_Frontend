@@ -21,7 +21,7 @@
               <div class="col-8">
                 <input type="text"
                   class="form-control"
-                  [(ngModel)]="vehicle.id" 
+                  [value]="vehicle.id" 
                   disabled
                 >
                 <br>
@@ -59,19 +59,40 @@
                 <label>Tipo de Vehículo:</label>
               </div>
               <div class="col-8">
-                <input 
-                  class="form-control" 
-                  type="text" 
-                  formControlName="type_vehicle" 
+                <select
+                  class="form-control"
+                  formControlName="type_vehicle"
                   [(ngModel)]="vehicle.type_vehicle"
-                  [ngClass]="{'is-invalid': theFormGroup.get('license_plate').errors && (theFormGroup.get('license_plate').dirty || theFormGroup.get('license_plate').touched || trySend)}"
-                />
-                <br>
-                <div *ngIf="theFormGroup.get('type_vehicle').errors && (theFormGroup.get('type_vehicle').dirty || theFormGroup.get('type_vehicle').touched || trySend)"
+                  [ngClass]="{
+                    'is-invalid':
+                      theFormGroup.get('type_vehicle').errors &&
+                      (theFormGroup.get('type_vehicle').dirty ||
+                        theFormGroup.get('type_vehicle').touched ||
+                        trySend)
+                  }"
+                >
+                  <option value="Camión">Camión</option>
+                  <option value="Automóvil">Automóvil</option>
+                  <option value="Camión">Camión</option>
+                  <option value="Motocicleta">Motocicleta</option>
+                  <option value="Bicicleta">Bicicleta</option>
+                  <option value="Bus">Bus</option>
+                </select>
+                <br />
+                <div
+                  *ngIf="
+                    theFormGroup.get('type_vehicle').errors &&
+                    (theFormGroup.get('type_vehicle').dirty ||
+                      theFormGroup.get('type_vehicle').touched ||
+                      trySend)
+                  "
                   class="invalid-feedback"
                 >
-                  <small class="msnError" *ngIf="theFormGroup.get('type_vehicle').errors['required']">El campo tipo de vehículo es obligatorio.</small>
-                  <small class="msnError" *ngIf="theFormGroup.get('type_vehicle').errors['pattern']">El tipo de vehículo debe ser uno de los siguientes: Automóvil, Camión, Motocicleta, Bicicleta o Bus.</small>
+                  <small
+                    class="msnError"
+                    *ngIf="theFormGroup.get('type_vehicle').errors['required']"
+                    >El campo estado es obligatorio.</small
+                  >
                 </div>
               </div>
             </div>
@@ -86,7 +107,6 @@
               </div>
             </div>
             <br />
-            
           </div>
         </form>
       </div>

@@ -1,0 +1,12 @@
+/* Estilos para el input inválido */
+.form-control.is-invalid {
+    border-color: #dc3545; /* Borde rojo */
+    box-shadow: 0 0 0 0.1rem rgba(220, 53, 69, 0.25); /* Sombra ligera roja */
+}
+  
+/* Estilos para el mensaje de error */
+.invalid-feedback {
+    color: #dc3545; /* Texto rojo */
+    font-size: 0.875rem; /* Tamaño pequeño */
+    margin-top: 0.25rem;
+}  
