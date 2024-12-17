@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DirListOrderService } from './dir_list_order.service';
+import { dirlistorderservice } from './dir_list_order.service';
 
-describe('DirListOrderService', () => {
-  let service: DirListOrderService;
+describe('dirlistorderservice', () => {
+  let service: dirlistorderservice;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DirListOrderService);
+    service = TestBed.inject(dirlistorderservice);
   });
 
   it('should be created', () => {

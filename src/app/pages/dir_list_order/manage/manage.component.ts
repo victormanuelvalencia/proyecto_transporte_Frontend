@@ -19,7 +19,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.dirListOrder = {id: 0, origin: "", destination: "", rute_id: 0, sec_address_id: 0};
+    this.dirListOrder = {id: 0, origin: "", destination: "", rute_id: null, sec_address_id: null};
   }
 
   getDriver(id: number) {

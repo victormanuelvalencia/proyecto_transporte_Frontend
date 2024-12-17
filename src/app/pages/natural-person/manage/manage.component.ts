@@ -81,9 +81,11 @@ export class ManageComponent implements OnInit {
 
   getNaturalPerson(id: number) {
     this.naturalpersonService.view(id).subscribe(data => {
-      this.naturalPerson = data
-    })
+      this.naturalPerson = data;
+      this.theFormGroup.patchValue(data); // Sincroniza los valores con el formulario
+    });
   }
+  
 
   create() {
     console.log(JSON.stringify(this.naturalPerson));
