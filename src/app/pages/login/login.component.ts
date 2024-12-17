@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { SecurityService } from 'src/app/services/security.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy{
   theUser: User;
 
   constructor(private service: SecurityService,
@@ -19,6 +19,11 @@ export class LoginComponent {
       email: '',
       password: '',
     };
+  }
+
+  ngOnInit() {
+  }
+  ngOnDestroy() {
   }
 
   // Método para realizar el login

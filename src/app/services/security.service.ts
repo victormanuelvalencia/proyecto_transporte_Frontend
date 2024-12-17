@@ -21,7 +21,7 @@ export class SecurityService {
   * @returns Respuesta HTTP la cual indica si el usuario tiene permiso de acceso
   */
   login(user: User): Observable<any> {
-    return this.http.post<any>(`${environment.MS_SEGURIDAD}/api/public/security/login`, user);
+    return this.http.post<any>(`${environment.MS_SEGURIDAD}/api/public/security/login/v2`, user);
   }
   
   /*
@@ -33,7 +33,7 @@ export class SecurityService {
       name: dataSesion["user"]["name"],
       email: dataSesion["user"]["email"],
       password: "",
-      role:dataSesion["user"]["role"],
+     // role:dataSesion["user"]["role"],
       token: dataSesion["token"]
     };
     localStorage.setItem('sesion', JSON.stringify(data));
