@@ -1,63 +1,337 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-   
-</div>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-    <!-- Table -->
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header bg-transparent">
-                    <h1 *ngIf="mode==1">Visualizar</h1>
-                    <h1 *ngIf="mode==2">Crear</h1>
-                    <h1 *ngIf="mode==3">Actualizar</h1>
-                </div>
+  <!-- Table -->
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <div class="card-header border-0">
+            <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+            <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+            <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+            </div>
+            <form class="form" [formGroup]="theFormGroup">
                 <div class="card-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">
-                                ID:
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="expense.id" disabled>
-                            </div>
+                    <!-- Campo ID (Solo para visualización) -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>ID:</label>
                         </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Descripción:
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="expense.description" [disabled]="mode==1">
-                            </div>
+                        <div class="col-8">
+                            <input
+                            type="number"
+                            class="form-control"
+                            [value]="expense.id"
+                            disabled
+                            />
+                            <br />
                         </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Monto:
-                            </div>
-                            <div class="col-8">
-                                <input type="number" class="form-control" [(ngModel)]="expense.ammount" [disabled]="mode==1">
-                            </div>
+                    </div>
+                    <br />
+
+                    <!-- Campo Descripción -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Descripción:</label>
                         </div>
-                        <div class="row">
-                            <div class="col-4">
-                                Estado:
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" [(ngModel)]="expense.status" [disabled]="mode==1">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                          
-                            </div>
-                            <div class="col-8">
-                                <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Crear</button>
-                                <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Actualizar</button>
+                        <div class="col-8">
+                            <input
+                            class="form-control"
+                            type="text"
+                            formControlName="description"
+                            [(ngModel)]="expense.description"
+                            [ngClass]="{
+                                'is-invalid':
+                                theFormGroup.get('description').errors &&
+                                (theFormGroup.get('description').dirty ||
+                                    theFormGroup.get('description').touched ||
+                                    trySend)
+                            }"
+                            />
+                            <br />
+                            <div
+                                *ngIf="
+                                    theFormGroup.get('description').errors &&
+                                    (theFormGroup.get('description').dirty ||
+                                    theFormGroup.get('description').touched ||
+                                    trySend)
+                                    "
+                                    class="invalid-feedback"
+                                    >
+                                <small
+                                    class="msnError"
+                                    *ngIf="theFormGroup.get('description').errors['required']"
+                                    >El campo descripción es obligatorio.</small
+                                >
                             </div>
                         </div>
                     </div>
+                    <br />
+
+                    <!-- Campo Monto -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Monto:</label>
+                        </div>
+                        <div class="col-8">
+                            <input
+                                class="form-control"
+                                type="number"
+                                formControlName="ammount"
+                                [(ngModel)]="expense.ammount"
+                                [ngClass]="{
+                                    'is-invalid':
+                                    theFormGroup.get('ammount').errors &&
+                                    (theFormGroup.get('ammount').dirty ||
+                                        theFormGroup.get('ammount').touched ||
+                                        trySend)
+                                }"
+                            />
+                            <br />
+                            <div
+                                *ngIf="
+                                    theFormGroup.get('ammount').errors &&
+                                    (theFormGroup.get('ammount').dirty ||
+                                    theFormGroup.get('ammount').touched ||
+                                    trySend)
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                <small
+                                    class="msnError"
+                                    *ngIf="theFormGroup.get('ammount').errors['required']"
+                                    >El campo monto es obligatorio.</small
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!-- Campo Estado -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Estado:</label>
+                        </div>
+                        <div class="col-8">
+                            <select
+                                class="form-control"
+                                formControlName="status"
+                                [(ngModel)]="expense.status"
+                                [ngClass]="{
+                                    'is-invalid':
+                                    theFormGroup.get('status').errors &&
+                                    (theFormGroup.get('status').dirty ||
+                                        theFormGroup.get('status').touched ||
+                                        trySend)
+                                }"
+                                >
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                            <br />
+                            <div
+                                *ngIf="
+                                    theFormGroup.get('status').errors &&
+                                    (theFormGroup.get('status').dirty ||
+                                    theFormGroup.get('status').touched ||
+                                    trySend)
+                                "
+                                class="invalid-feedback"
+                                >
+                                <small
+                                    class="msnError"
+                                    *ngIf="theFormGroup.get('status').errors['required']"
+                                    >El campo estado es obligatorio.</small
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!-- Campo ID Hotel -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>ID Hotel:</label>
+                        </div>
+                        <div class="col-8">
+                            <input
+                            class="form-control"
+                            type="number"
+                            formControlName="hotel_id"
+                            [(ngModel)]="expense.hotel_id"
+                            [ngClass]="{
+                                'is-invalid':
+                                theFormGroup.get('hotel_id').errors &&
+                                (theFormGroup.get('hotel_id').dirty ||
+                                    theFormGroup.get('hotel_id').touched ||
+                                    trySend)
+                            }"
+                            />
+                            <br />
+                            <div
+                                *ngIf="
+                                    theFormGroup.get('hotel_id').errors &&
+                                    (theFormGroup.get('hotel_id').dirty ||
+                                    theFormGroup.get('hotel_id').touched ||
+                                    trySend)
+                                "
+                                class="invalid-feedback"
+                                >
+                                <small
+                                    class="msnError"
+                                    *ngIf="theFormGroup.get('hotel_id').errors['pattern']"
+                                    >El campo ID Hotel debe ser un número de hasta 5
+                                    dígitos.</small
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!-- Campo ID Restaurante -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>ID Restaurante:</label>
+                        </div>
+                        <div class="col-8">
+                            <input
+                                class="form-control"
+                                type="number"
+                                formControlName="restaurant_id"
+                                [(ngModel)]="expense.restaurant_id"
+                                [ngClass]="{
+                                    'is-invalid':
+                                    theFormGroup.get('restaurant_id').errors &&
+                                    (theFormGroup.get('restaurant_id').dirty ||
+                                        theFormGroup.get('restaurant_id').touched ||
+                                        trySend)
+                                }"
+                            />
+                            <br />
+                            <div
+                                *ngIf="
+                                    theFormGroup.get('restaurant_id').errors &&
+                                    (theFormGroup.get('restaurant_id').dirty ||
+                                    theFormGroup.get('restaurant_id').touched ||
+                                    trySend)
+                                "
+                                class="invalid-feedback"
+                                >
+                                <small
+                                    class="msnError"
+                                    *ngIf="theFormGroup.get('restaurant_id').errors['pattern']"
+                                    >El campo ID Restaurante debe ser un número de hasta 5
+                                    dígitos.</small
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!-- Campo ID Conductor -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>ID Conductor:</label>
+                        </div>
+                        <div class="col-8">
+                            <input
+                                class="form-control"
+                                type="number"
+                                formControlName="driver_id"
+                                [(ngModel)]="expense.driver_id"
+                                [ngClass]="{
+                                    'is-invalid':
+                                    theFormGroup.get('driver_id').errors &&
+                                    (theFormGroup.get('driver_id').dirty ||
+                                        theFormGroup.get('driver_id').touched ||
+                                        trySend)
+                                }"
+                            />
+                            <br />
+                            <div
+                                *ngIf="
+                                    theFormGroup.get('driver_id').errors &&
+                                    (theFormGroup.get('driver_id').dirty ||
+                                    theFormGroup.get('driver_id').touched ||
+                                    trySend)
+                                "
+                                class="invalid-feedback"
+                                >
+                                <small
+                                    class="msnError"
+                                    *ngIf="theFormGroup.get('driver_id').errors['pattern']"
+                                    >El campo ID Conductor debe ser un número de hasta 5
+                                    dígitos.</small
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!-- Campo ID Dueño -->
+                    <div class="row">
+                        <div class="col-4">
+                            <label>ID Dueño:</label>
+                        </div>
+                        <div class="col-8">
+                            <input
+                                class="form-control"
+                                type="number"
+                                formControlName="owner_id"
+                                [(ngModel)]="expense.owner_id"
+                                [ngClass]="{
+                                    'is-invalid':
+                                    theFormGroup.get('owner_id').errors &&
+                                    (theFormGroup.get('owner_id').dirty ||
+                                        theFormGroup.get('owner_id').touched ||
+                                        trySend)
+                                }"
+                            />
+                            <br />
+                            <div
+                                *ngIf="
+                                    theFormGroup.get('owner_id').errors &&
+                                    (theFormGroup.get('owner_id').dirty ||
+                                    theFormGroup.get('owner_id').touched ||
+                                    trySend)
+                                "
+                                class="invalid-feedback"
+                                >
+                                <small
+                                    class="msnError"
+                                    *ngIf="theFormGroup.get('owner_id').errors['pattern']"
+                                    >El campo ID Dueño debe ser un número de hasta 5
+                                    dígitos.</small
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!-- Botones -->
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-8">
+                            <button
+                                *ngIf="mode == 2"
+                                class="btn btn-success btn-block"
+                                (click)="create()"
+                                >
+                                Crear
+                            </button>
+                            <button
+                                *ngIf="mode == 3"
+                                class="btn btn-success btn-block"
+                                (click)="update()"
+                                >
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    <br />
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 </div>

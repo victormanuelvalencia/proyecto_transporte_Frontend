@@ -23,7 +23,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.mode = 0;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.vehicle = {id: 0, license_plate: "", type_vehicle: "", max_load_capacity: 0};
+    this.vehicle = {id: 0, license_plate: "", type_vehicle: ""};
     this.trySend = false;
   }
 
@@ -63,15 +63,7 @@ export class ManageComponent implements OnInit {
         '', 
         [
           Validators.required, 
-          Validators.pattern(/^(carro|camion|motocicleta|bicicleta|bus)$/i) // Solo permite ciertos valores (puedes personalizar esta lista)
-        ]
-      ],
-      max_load_capacity: [
-        '', 
-        [
-          Validators.required, 
-          Validators.min(1), // El valor mínimo permitido es 1
-          Validators.pattern(/^\d+$/) // Solo permite números enteros positivos
+          Validators.pattern(/^(Automóvil|Camión|Motocicleta|Bicicleta|Bus)$/i) // Solo permite ciertos valores (puedes personalizar esta lista)
         ]
       ]
     });
@@ -88,34 +80,27 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    console.log(JSON.stringify(this.vehicle));
-
     if(this.theFormGroup.invalid){
       this.trySend = true
-      Swal.fire("Formulario incorrecto", "ingrese correctamente los datos", "error")
-      return    
+      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error") 
+    } else {
+      this.service.create(this.vehicle).subscribe(data=>{
+        Swal.fire("Creado"," Se ha creado exitosamente", "success")
+        this.router.navigate(["vehicles/list"]); 
+      })
     }
-    console.log(JSON.stringify(this.vehicle));
-    this.service.create(this.vehicle).subscribe(data=>{
-      Swal.fire("Creado"," se ha creado exitosa mente", "success")//tirulo a la alerta
-      this.router.navigate(["vehicles/list"]); 
-    })
-
   }
 
   update() {
     if(this.theFormGroup.invalid){
         this.trySend = true
-        Swal.fire("Formulario incorrecto", "ingrese correctamente los datos", "error")
-        return    
-      }
-    console.log(JSON.stringify(this.vehicle), "hola");
-
-    this.service.update(this.vehicle).subscribe(data => {
-      Swal.fire("Actualizado", " se ha actualizado exitosa mente", "success")//tirulo a la alerta
-      this.router.navigate(["vehicles/list"]);
-    })
-
+        Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
+    } else {
+      this.service.update(this.vehicle).subscribe(data => {
+        Swal.fire("Actualizado", " Se ha actualizado exitosamente", "success")
+        this.router.navigate(["vehicles/list"]);
+      })
+    }
   }
 }
 

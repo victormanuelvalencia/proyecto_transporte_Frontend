@@ -23,6 +23,46 @@
                 <p>{{ customer.id }}</p>
               </div>
             </div>
+
+            <!-- Campo Nombre -->
+            <div class="row">
+              <div class="col-4">
+                <label>Nombre:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  formControlName="name" 
+                  [(ngModel)]="customer.name"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('name').errors && (theFormGroup.get('name').dirty || theFormGroup.get('name').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('name').errors['required']">El campo nombre es obligatorio.</small>
+                </div>
+              </div>
+            </div>
+            <br />
+
+            <!-- Campo Email -->
+            <div class="row">
+              <div class="col-4">
+                <label>Email:</label>
+              </div>
+              <div class="col-8">
+                <input 
+                  class="form-control" 
+                  type="email" 
+                  formControlName="email" 
+                  [(ngModel)]="customer.email"
+                />
+                <br>
+                <div *ngIf="theFormGroup.get('email').errors && (theFormGroup.get('email').dirty || theFormGroup.get('email').touched || trySend)">
+                  <small class="msnError" *ngIf="theFormGroup.get('email').errors['required']">El campo email es obligatorio.</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('email').errors['email']">El email no es válido.</small>
+                </div>
+              </div>
+            </div>
             <br />
 
             <!-- Campo Teléfono -->
@@ -60,7 +100,7 @@
                 />
                 <br>
                 <div *ngIf="theFormGroup.get('address').errors && (theFormGroup.get('address').dirty || theFormGroup.get('address').touched || trySend)">
-                  <small class="msnError" *ngIf="theFormGroup.get('address').errors['pattern']">La dirección solo debe contener números y el símbolo "+".</small>
+                  <small class="msnError" *ngIf="theFormGroup.get('address').errors['required']">El campo dirección es obligatorio.</small>
                 </div>
               </div>
             </div>
@@ -75,10 +115,9 @@
               </div>
             </div>
             <br />
-            
+
           </div>
         </form>
-
       </div>
     </div>
   </div>

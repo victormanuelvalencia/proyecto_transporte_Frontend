@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Facture } from 'src/app/models/facture.model';
 import { FacturesService } from 'src/app/services/factures.service';
 import Swal from 'sweetalert2';
@@ -12,7 +13,7 @@ export class ListComponent implements OnInit {
 
   factures:Facture[]
   //inyectamos factureservice
-  constructor(private service:FacturesService) { 
+  constructor(private service:FacturesService, private router: Router) { 
     this.factures=[]
   }
 
@@ -55,9 +56,17 @@ export class ListComponent implements OnInit {
       this.ngOnInit(); //esto es para refescar, pero ciertos elementos y no toda la pagiba
       });
       }
-      })
-      
-    
-    
+    })
+  }
+  create() {
+    this.router.navigate(['factures/create']);
+  }
+
+  view(id: number) {
+    this.router.navigate(['factures/view/'+id]);
+  }
+
+  update(id: number) {
+    this.router.navigate(['factures/update/'+id]);
   }
 }

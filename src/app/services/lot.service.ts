@@ -13,22 +13,22 @@ export class LotService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Lot[]> {
-    return this.http.get<Lot[]>(`${environment.MS_NEGOCIO}/Lots`);
+    return this.http.get<Lot[]>(`${environment.MS_NEGOCIO}/lots`);
   }
 
   delete(id: number) {
-    return this.http.delete<Lot>(`${environment.MS_NEGOCIO}/Lots/${id}`); 
+    return this.http.delete<Lot>(`${environment.MS_NEGOCIO}/lots/${id}`); 
   }
 
   view(id: number): Observable<Lot> {
-    return this.http.get<Lot>(`${environment.MS_NEGOCIO}/Lots/${id}`);
+    return this.http.get<Lot>(`${environment.MS_NEGOCIO}/lots/${id}`);
   }
 
   create(lot: Lot): Observable<Lot> {
-    return this.http.post<Lot>(`${environment.MS_NEGOCIO}/Lots`, lot);
+    return this.http.post<Lot>(`${environment.MS_NEGOCIO}/lots`, lot);
   }
   
   update(lot: Lot): Observable<Lot> {
-    return this.http.put<Lot>(`${environment.MS_NEGOCIO}/Lots/${lot.id}`, lot);
+    return this.http.put<Lot>(`${environment.MS_NEGOCIO}/lots/${lot.id}`, lot);
   }  
 }

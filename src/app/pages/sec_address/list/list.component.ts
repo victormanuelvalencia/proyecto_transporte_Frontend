@@ -55,15 +55,15 @@ export class ListComponent implements OnInit {
   }
   
   create() {
-    this.router.navigate(['secaddresses/create']);
+    this.router.navigate(['sec_address/create']);
   }
 
   view(id: number) {
-    this.router.navigate(['secaddresses/view/'+id]);
+    this.router.navigate(['sec_address/view/'+id]);
   }
 
   update(id: number) {
-    this.router.navigate(['secaddresses/update/'+id]);
+    this.router.navigate(['sec_address/update/'+id]);
   }
 }
 

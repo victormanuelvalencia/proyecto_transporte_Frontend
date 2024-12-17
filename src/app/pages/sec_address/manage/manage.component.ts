@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SecAddress } from 'src/app/models/sec_address.model';
 import { SecAddressService } from 'src/app/services/sec_address.service';
@@ -12,10 +13,12 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   mode: number; // 1 -> View. 2 -> Create. 3 -> Update
   secAddress: SecAddress;
+  theFormGroup: FormGroup;
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: SecAddressService,
-              private router: Router
+              private router: Router,
+              private theFormBuilder: FormBuilder
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
@@ -36,6 +39,7 @@ export class ManageComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -51,18 +55,25 @@ export class ManageComponent implements OnInit {
     }
   }
   
+  configFormGroup() {
+    this.theFormGroup = this.theFormBuilder.group({
+      street: ['', [Validators.required, Validators.minLength(4)]],
+      street_number: ['', [Validators.required, Validators.minLength(4)]],
+      reference_point: ['', [Validators.required, Validators.minLength(4)]]
+    });
+  }
 
   create() {
     this.service.create(this.secAddress).subscribe(data => {
       Swal.fire("Completado", "Se ha creado correctamente", "success");
-      this.router.navigate(['secaddresses/list'])
+      this.router.navigate(['sec_address/list'])
     })
   }
 
   update(){
     this.service.update(this.secAddress).subscribe(data => {
       Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
-      this.router.navigate(['secaddresses/list'])
+      this.router.navigate(['sec_address/list'])
     })
   }
 }

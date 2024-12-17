@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DriverRoutingModule } from './driver-routing.module';
 import { ListComponent } from './list/list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManageComponent } from './manage/manage.component';
 
 
@@ -15,7 +15,8 @@ import { ManageComponent } from './manage/manage.component';
   imports: [
     CommonModule,
     DriverRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class DriverModule { }

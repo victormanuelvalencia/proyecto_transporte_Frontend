@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwnerVehicle } from 'src/app/models/owner-vehicle';
 import { OwnerVehicleService } from 'src/app/services/owner-vehicle.service';
@@ -13,15 +14,20 @@ export class ManageComponent implements OnInit {
 
   mode: number; // 1 -> View. 2 -> Create. 3 -> Update
   owner_vehicle: OwnerVehicle;
+  theFormGroup: FormGroup;
+  trySend: boolean;
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: OwnerVehicleService,
-              private router: Router
+              private router: Router,
+              private theFormBuilder: FormBuilder
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.owner_vehicle = {id: 0, owner_id: 0, vehicle_id: 0, ownership_date: null};
+    this.owner_vehicle = {id: null, owner_id: null, vehicle_id: null};
+    this.trySend = false;
   }
+
   getOwnerVehicle(id: number) {
     this.service.view(id).subscribe({
       next: (data) => {
@@ -36,6 +42,7 @@ export class ManageComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.configFormGroup()
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -50,17 +57,56 @@ export class ManageComponent implements OnInit {
       this.getOwnerVehicle(id);
     }
   }
+
+  configFormGroup() {
+    this.theFormGroup = this.theFormBuilder.group({
+      id: [null], // Campo opcional, por eso no se le agregan validaciones
+      owner_id: [
+        '', 
+        [
+          Validators.required, 
+          Validators.pattern('^[0-9]{1,5}$') 
+        ]
+      ],
+      vehicle_id: [
+        '', 
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]{1,5}$')  
+        ]
+      ]
+    });
+  }
+
+  get getTheFormGroup(){
+    return this.theFormGroup.controls
+  }
   
   create() {
-    this.service.create(this.owner_vehicle).subscribe(data => {
-      Swal.fire("Completado", "Se ha creado correctamente", "success");
-      this.router.navigate(['owner-vehicles/list'])
-    })
+    if(this.theFormGroup.invalid){
+      this.trySend = true
+      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
+    } else {
+      this.owner_vehicle.owner_id = this.theFormGroup.get('owner_id')?.value;
+      this.owner_vehicle.vehicle_id = this.theFormGroup.get('vehicle_id')?.value;
+      this.service.create(this.owner_vehicle).subscribe(data => {
+        Swal.fire("Completado", "Se ha creado correctamente", "success");
+        this.router.navigate(['owner-vehicles/list'])
+      });
+      
+    }
   }
   update(){
-    this.service.update(this.owner_vehicle).subscribe(data => {
-      Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
-      this.router.navigate(['owner-vehicles/list'])
-    })
+    if(this.theFormGroup.invalid){
+      this.trySend = true
+      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
+    } else {
+      this.owner_vehicle.owner_id = this.theFormGroup.get('owner_id')?.value;
+      this.owner_vehicle.vehicle_id = this.theFormGroup.get('vehicle_id')?.value;
+      this.service.update(this.owner_vehicle).subscribe(data => {
+        Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
+        this.router.navigate(['owner-vehicles/list'])
+      });
+    }
   }
 }

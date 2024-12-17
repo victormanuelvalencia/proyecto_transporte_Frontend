@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lot } from 'src/app/models/lot.model';
 import { LotService } from 'src/app/services/lot.service';
@@ -12,10 +13,12 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   mode: number; // 1 -> View. 2 -> Create. 3 -> Update
   lot: Lot;
+  theFormGroup: FormGroup;
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: LotService,
-              private router: Router
+              private router: Router,
+              private theFormBuilder: FormBuilder
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
@@ -28,6 +31,7 @@ export class ManageComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -43,6 +47,13 @@ export class ManageComponent implements OnInit {
     }
   }
   
+  configFormGroup() {
+    this.theFormGroup = this.theFormBuilder.group({
+      total_weight: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      dir_list_order_id: [0, [Validators.pattern(/^\d+$/)]],
+      rute_id: [0, [Validators.pattern(/^\d+$/)]] // Sin validaciones, opcional
+    });
+  }
 
   create() {
     this.service.create(this.lot).subscribe(data => {

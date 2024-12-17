@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Fee } from 'src/app/models/fee.model';
 import { FeeService } from 'src/app/services/fee.service';
 import Swal from 'sweetalert2';
@@ -12,7 +13,7 @@ export class ListComponent implements OnInit {
 
   fee:Fee[]
   //inyectamos factureservice
-  constructor(private service:FeeService) { 
+  constructor(private service:FeeService, private router: Router) { 
     this.fee=[]
   }
 
@@ -56,5 +57,17 @@ export class ListComponent implements OnInit {
       });
       }
       })
+  }
+
+  create() {
+    this.router.navigate(['fees/create']);
+  }
+
+  view(id: number) {
+    this.router.navigate(['fees/view/'+id]);
+  }
+
+  update(id: number) {
+    this.router.navigate(['fees/update/'+id]);
   }
 }

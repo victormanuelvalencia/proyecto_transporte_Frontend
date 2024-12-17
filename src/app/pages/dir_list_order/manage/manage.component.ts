@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DirListOrder } from 'src/app/models/dir_list_order.model';
 import { dirlistorderservice } from 'src/app/services/dir_list_order.service';
@@ -12,10 +13,12 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   mode: number; // 1 -> View. 2 -> Create. 3 -> Update
   dirListOrder: DirListOrder;
+  theFormGroup: FormGroup;
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: dirlistorderservice,
-              private router: Router
+              private router: Router,
+              private theFormBuilder: FormBuilder
   ) {
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
@@ -36,6 +39,7 @@ export class ManageComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -51,18 +55,26 @@ export class ManageComponent implements OnInit {
     }
   }
   
+  configFormGroup() {
+    this.theFormGroup = this.theFormBuilder.group({
+      origin: ['', [Validators.required, Validators.minLength(4)]],
+      destination: ['', [Validators.required, Validators.minLength(4)]],
+      rute_id: [0, [Validators.pattern(/^\d+$/)]],
+      sec_address_id: [0, [Validators.pattern(/^\d+$/)]] // Sin validaciones, opcional
+    });
+  }
 
   create() {
     this.service.create(this.dirListOrder).subscribe(data => {
       Swal.fire("Completado", "Se ha creado correctamente", "success");
-      this.router.navigate(['dirlistorders/list'])
+      this.router.navigate(['dir_list_order/list'])
     })
   }
 
   update(){
     this.service.update(this.dirListOrder).subscribe(data => {
       Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
-      this.router.navigate(['dirlistorders/list'])
+      this.router.navigate(['dir_list_order/list'])
     })
   }
 }

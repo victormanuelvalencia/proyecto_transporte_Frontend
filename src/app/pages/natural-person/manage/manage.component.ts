@@ -98,7 +98,7 @@ export class ManageComponent implements OnInit {
     console.log(JSON.stringify(this.naturalPerson));
     this.naturalpersonService.create(this.naturalPerson).subscribe(data=>{
       Swal.fire("Creado"," se ha creado exitosa mente", "success")//tirulo a la alerta
-      this.router.navigate(["natural-person/list"]); 
+      this.router.navigate(["natural-persons/list"]); 
     })
 
   }
@@ -109,11 +109,10 @@ export class ManageComponent implements OnInit {
         Swal.fire("Formulario incorrecto", "ingrese correctamente los datos", "error")
         return    
       }
-    console.log(JSON.stringify(this.naturalPerson), "hola");
 
     this.naturalpersonService.update(this.naturalPerson).subscribe(data => {
       Swal.fire("Actualizado", " se ha actualizado exitosa mente", "success")//tirulo a la alerta
-      this.router.navigate(["natural-person/list"]);
+      this.router.navigate(["natural-persons/list"]);
     })
 
   }

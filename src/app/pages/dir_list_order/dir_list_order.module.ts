@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DirListOrderRoutingModule } from './dir_list_order-routing.module';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     DirListOrderRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class DirListOrderModule { }

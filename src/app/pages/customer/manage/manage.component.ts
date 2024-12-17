@@ -24,6 +24,8 @@ export class ManageComponent implements OnInit {
   ) { //esto me ayuda a llmar las apis
     this.customer = {
       id: 0,
+      name: "",
+      email: "",
       phone: "",
       address: ""
       
@@ -53,6 +55,8 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
+      name: ['', [Validators.required]], // Campo requerido
+      email: ['', [Validators.required, Validators.email]], // Campo requerido y formato de email
       phone: ['', [Validators.pattern(/^[\d+]+$/)]], // Solo números enteros, opcional
       address: ['', [Validators.required]]
     });

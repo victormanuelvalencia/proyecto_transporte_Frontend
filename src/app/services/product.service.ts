@@ -13,22 +13,22 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.MS_NEGOCIO}/Products`);
+    return this.http.get<Product[]>(`${environment.MS_NEGOCIO}/products`);
   }
 
   delete(id: number) {
-    return this.http.delete<Product>(`${environment.MS_NEGOCIO}/Products/${id}`); 
+    return this.http.delete<Product>(`${environment.MS_NEGOCIO}/products/${id}`); 
   }
 
   view(id: number): Observable<Product> {
-    return this.http.get<Product>(`${environment.MS_NEGOCIO}/Products/${id}`);
+    return this.http.get<Product>(`${environment.MS_NEGOCIO}/products/${id}`);
   }
 
   create(product: Product): Observable<Product> {
-    return this.http.post<Product>(`${environment.MS_NEGOCIO}/Products`, product);
+    return this.http.post<Product>(`${environment.MS_NEGOCIO}/products`, product);
   }
   
   update(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${environment.MS_NEGOCIO}/Products/${product.id}`, product);
+    return this.http.put<Product>(`${environment.MS_NEGOCIO}/products/${product.id}`, product);
   }  
 }
