@@ -83,5 +83,49 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'owner-vehicles',
         loadChildren: () => import('src/app/pages/owner-vehicle/owner-vehicle.module').then(m => m.OwnerVehicleModule)
-    }
+    },
+    {
+        path: 'administrators',
+        loadChildren: () => import('src/app/pages/administrator/administrator.module').then(m => m.AdministratorModule)
+    },
+    {
+        path: 'categories',
+        loadChildren: () => import('src/app/pages/category/category.module').then(m => m.CategoryModule)
+    },
+    {
+        path: 'category-products',
+        loadChildren: () => import('src/app/pages/category-products/category-products.module').then(m => m.CategoryProductsModule)
+    },
+    {
+        path: 'companies',
+        loadChildren: () => import('src/app/pages/company/company.module').then(m => m.CompanyModule)
+    },
+    {
+        path: 'distribution-centers',
+        loadChildren: () => import('src/app/pages/distribution-center/distribution-center.module').then(m => m.DistributionCenterModule)
+    },
+    {
+        path: 'hotels',
+        loadChildren: () => import('src/app/pages/hotel/hotel.module').then(m => m.HotelModule)
+    },
+    {
+        path: 'insurances',
+        loadChildren: () => import('src/app/pages/insurance/insurance.module').then(m => m.InsuranceModule)
+    },
+    {
+        path: 'municipalities',
+        loadChildren: () => import('src/app/pages/municipality/municipality.module').then(m => m.MunicipalityModule)
+    },
+    {
+        path: 'restaurants',
+        loadChildren: () => import('src/app/pages/restaurant/restaurant.module').then(m => m.RestaurantModule)
+    },
+    {
+        path: 'shifts',
+        loadChildren: () => import('src/app/pages/shift/shift.module').then(m => m.ShiftModule)
+    },
+    {
+        path: 'departments',
+        loadChildren: () => import('src/app/pages/departament/departament.module').then(m => m.DepartamentModule)
+    },
 ];
