@@ -303,8 +303,26 @@
                 </div>
             </div>
 
-            <!-- Muestra el error si el formulario no es válido -->
-            <button [disabled]="!theFormGroup.valid" class="btn btn-primary mt-3">Enviar</button>
+           <!-- Botones -->
+           <div class="row">
+            <div class="col-4"></div>
+            <div class="col-8">
+                <button
+                    *ngIf="mode == 2"
+                    class="btn btn-success btn-block"
+                    (click)="create()"
+                    >
+                    Crear
+                </button>
+                <button
+                    *ngIf="mode == 3"
+                    class="btn btn-success btn-block"
+                    (click)="update()"
+                    >
+                    Actualizar
+                </button>
+            </div>
+        </div>
           </div>
         </form>
       </div>
