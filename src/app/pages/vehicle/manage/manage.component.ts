@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Insurance } from 'src/app/models/insurance.model';
 import { Vehicle } from 'src/app/models/vehicle.model';
+import { InsuranceService } from 'src/app/services/insurance.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
 
@@ -15,20 +17,38 @@ export class ManageComponent implements OnInit {
   vehicle: Vehicle;
   theFormGroup:FormGroup
   trySend:boolean;
+  insurances: Insurance[];
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: VehicleService,
               private router: Router,
-              private theFormBuilder: FormBuilder
+              private theFormBuilder: FormBuilder,
+              private insurancesService: InsuranceService
   ) {
+    this.insurances = [];
     this.mode = 0;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.vehicle = {id: 0, license_plate: "", type_vehicle: ""};
+    this.vehicle = {
+      id: null, 
+      license_plate: "", 
+      type_vehicle: "",
+      insurance: {
+        id: null
+      }
+    };
     this.trySend = false;
   }
 
+
+  insurancesList() {
+    this.insurancesService.list().subscribe( data => {
+      this.insurances = data;
+    });
+  }
+  
   ngOnInit(): void {
     this.configFormGroup()
+    this.insurancesList();
     // Esta línea se encarga de tomarle una foto a la ruta y se la asigna a 'currentUrl'
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     // Si la ruta incluye la palabra 'view', se le asigna el modo 1
@@ -65,6 +85,10 @@ export class ManageComponent implements OnInit {
           Validators.required, 
           Validators.pattern(/^(Automóvil|Camión|Motocicleta|Bicicleta|Bus)$/i) // Solo permite ciertos valores (puedes personalizar esta lista)
         ]
+      ],
+      insurance_id: [
+        null,
+        Validators.required
       ]
     });
   }
@@ -80,16 +104,19 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    if(this.theFormGroup.invalid){
-      this.trySend = true
-      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error") 
+    console.log(JSON.stringify(this.vehicle))
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error");
     } else {
-      this.service.create(this.vehicle).subscribe(data=>{
-        Swal.fire("Creado"," Se ha creado exitosamente", "success")
-        this.router.navigate(["vehicles/list"]); 
-      })
+      const vehicleData = this.theFormGroup.value;
+      this.service.create(vehicleData).subscribe(data => {
+        Swal.fire("Creado", "Se ha creado exitosamente", "success");
+        this.router.navigate(["vehicles/list"]);
+      });
     }
   }
+  
 
   update() {
     if(this.theFormGroup.invalid){
