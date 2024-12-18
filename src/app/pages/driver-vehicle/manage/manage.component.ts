@@ -106,8 +106,8 @@ export class ManageComponent implements OnInit {
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       id: [null], // Opcional, sin validaciones
-      vehicle_id: ['', [Validators.required]],
-      driver_id: ['',],
+      vehicle_id: [null, [Validators.required]],
+      driver_id: [null,],
       owner_id: [null,], // Añadido para evitar el error
     });
   }
@@ -149,6 +149,9 @@ export class ManageComponent implements OnInit {
       this.trySend = true
       Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error")
     } else {
+      this.driver_vehicle.driver_id = this.theFormGroup.get('driver_id')?.value;
+      this.driver_vehicle.owner_id = this.theFormGroup.get('owner_id')?.value;
+      this.driver_vehicle.vehicle_id = this.theFormGroup.get('vehicle_id')?.value;
       this.service.update(this.driver_vehicle).subscribe(data => {
         Swal.fire("Actualizado", "Se ha actualizado correctamente", "success");
         this.router.navigate(['driver-vehicles/list'])
