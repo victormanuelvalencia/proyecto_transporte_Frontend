@@ -1,0 +1,56 @@
+<div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-muted mb-4">
+              <small>Ingrese su correo electrónico y el código de autenticación enviado</small>
+            </div>
+            <form role="form">
+              <!-- Campo para el email -->
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                  </div>
+                  <input
+                    class="form-control"
+                    placeholder="Correo Electrónico"
+                    type="email"
+                    [(ngModel)]="user.email"
+                    name="email"
+                  />
+                </div>
+              </div>
+              <!-- Campo para el código 2FA -->
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                  </div>
+                  <input
+                    class="form-control"
+                    placeholder="Código 2FA"
+                    type="text"
+                    [(ngModel)]="user.verificationCode"
+                    name="verificationCode"
+                  />
+                </div>
+              </div>
+              <!-- Botón de verificación -->
+              <div class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-primary my-4"
+                  (click)="verify2FA()"
+                >
+                  Verificar Código
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

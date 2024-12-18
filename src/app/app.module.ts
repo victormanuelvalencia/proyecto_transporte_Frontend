@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { SecurityInterceptor } from './interceptors/security.interceptor';
+import { FAComponent } from './pages/fa/fa.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SecurityInterceptor } from './interceptors/security.interceptor';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    FAComponent
   ],
   providers: [
     {

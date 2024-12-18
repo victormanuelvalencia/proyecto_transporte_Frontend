@@ -15,7 +15,7 @@
       </div>
     </form>
     <!-- User -->
-    <ul *ngIf="getTheSecurityService().existSession()"class="navbar-nav align-items-center d-none d-md-flex">
+    <ul *ngIf="getSession()"class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item" ngbDropdown placement="bottom-right">
         <a class="nav-link pr-0" role="button" ngbDropdownToggle>
           <div class="media align-items-center">
