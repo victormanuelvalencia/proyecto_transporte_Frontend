@@ -24,6 +24,9 @@ export class SecurityService {
     return this.http.post<any>(`${environment.MS_SEGURIDAD}/api/public/security/login/v2`, user);
   }
   
+  SegundoFA(user: User): Observable<any> {
+    return this.http.post<any>(`${environment.MS_SEGURIDAD}/api/public/security/verify-2fa`, user);
+  }
   /*
   Guardar la información de usuario en el local storage
   */
@@ -32,11 +35,15 @@ export class SecurityService {
       _id: dataSesion["user"]["_id"],
       name: dataSesion["user"]["name"],
       email: dataSesion["user"]["email"],
+      verificationCode: dataSesion["user"]["verificationCode"],
       password: "",
      // role:dataSesion["user"]["role"],
       token: dataSesion["token"]
     };
     localStorage.setItem('sesion', JSON.stringify(data));
+
+    console.log("log desde service"+ data);
+    
     this.setUser(data);
   }
   /**
