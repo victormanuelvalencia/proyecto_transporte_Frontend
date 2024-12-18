@@ -10,10 +10,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  category:Category[]
+  categories:Category[]
   //inyectamos factureservice
   constructor(private service:CategoryService, private router: Router) { 
-    this.category=[]
+    this.categories=[]
   }
 
   ngOnInit(): void {
@@ -25,9 +25,9 @@ export class ListComponent implements OnInit {
     //el subscribe es similar a un await, pero en el backend, así que va a esperar la respuesta del backend
     //la respuesta es data
     this.service.list().subscribe(data =>{
-      this.category=data
+      this.categories=data
 
-      console.log(JSON.stringify(this.category));
+      console.log(JSON.stringify(this.categories));
       
     })
   }

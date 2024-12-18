@@ -11,10 +11,10 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  municipality:Municipality[]
+  municipalities:Municipality[]
   //inyectamos factureservice
   constructor(private service:MunicipalityService, private router: Router) { 
-    this.municipality=[]
+    this.municipalities=[]
   }
 
   ngOnInit(): void {
@@ -26,9 +26,9 @@ export class ListComponent implements OnInit {
     //el subscribe es similar a un await, pero en el backend, así que va a esperar la respuesta del backend
     //la respuesta es data
     this.service.list().subscribe(data =>{
-      this.municipality=data
+      this.municipalities=data
 
-      console.log(JSON.stringify(this.municipality));
+      console.log(JSON.stringify(this.municipalities));
       
     })
   }

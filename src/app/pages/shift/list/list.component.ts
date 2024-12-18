@@ -13,10 +13,10 @@ export class ListComponent implements OnInit {
 
   
 
-  shift:Shift[]
+  shifts:Shift[]
   //inyectamos factureservice
   constructor(private service:ShiftService, private router: Router) { 
-    this.shift=[]
+    this.shifts=[]
   }
 
   ngOnInit(): void {
@@ -28,9 +28,9 @@ export class ListComponent implements OnInit {
     //el subscribe es similar a un await, pero en el backend, así que va a esperar la respuesta del backend
     //la respuesta es data
     this.service.list().subscribe(data =>{
-      this.shift=data
+      this.shifts=data
 
-      console.log(JSON.stringify(this.shift));
+      console.log(JSON.stringify(this.shifts));
       
     })
   }

@@ -13,10 +13,10 @@ export class ListComponent implements OnInit {
 
   
 
-  restaurant:Restaurant[]
+  restaurants:Restaurant[]
   //inyectamos factureservice
   constructor(private service:RestaurantService, private router: Router) { 
-    this.restaurant=[]
+    this.restaurants=[]
   }
 
   ngOnInit(): void {
@@ -28,9 +28,9 @@ export class ListComponent implements OnInit {
     //el subscribe es similar a un await, pero en el backend, así que va a esperar la respuesta del backend
     //la respuesta es data
     this.service.list().subscribe(data =>{
-      this.restaurant=data
+      this.restaurants=data
 
-      console.log(JSON.stringify(this.restaurant));
+      console.log(JSON.stringify(this.restaurants));
       
     })
   }

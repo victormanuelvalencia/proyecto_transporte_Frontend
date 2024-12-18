@@ -1,1 +1,53 @@
-<p>list works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4">
+                            <h3 class="mb-0">Turnos</h3> 
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-3 text-end">
+                            <button type="button" class="btn btn-success" (click)="create()">
+                                <i class="fas fa-plus"></i> Crear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Hora de Inicio</th>
+                                <th scope="col">Hora de Fin</th>
+                                <th scope="col">ID del conductor</th>
+                                <th scope="col">Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let shift of shifts">
+                                <td>{{shift.id}}</td>
+                                <td>{{shift.start_time}}</td>
+                                <td>{{shift.end_time}}</td>
+                                <td>{{shift.driver_id}}</td>
+                                <td>{{shift.date}}</td>
+                                <td>
+                                    <button class="btn btn-info" (click)="view(shift.id)">Ver</button>
+                                    <button class="btn btn-warning" (click)="update(shift.id)">Editar</button>
+                                    <button class="btn btn-danger" (click)="delete(shift.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

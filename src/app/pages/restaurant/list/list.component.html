@@ -1,1 +1,47 @@
-<p>list works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="row align-items-center text-center">
+                        <div class="col-4">
+                            <h3 class="mb-0">Restaurantes</h3> 
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-3 text-end">
+                            <button type="button" class="btn btn-success" (click)="create()">
+                                <i class="fas fa-plus"></i> Crear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Tipo de Comida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let restaurant of restaurants">
+                                <td>{{restaurant.id}}</td>
+                                <td>{{restaurant.meal_type}}</td>
+                                <td>
+                                    <button class="btn btn-info" (click)="view(restaurant.id)">Ver</button>
+                                    <button class="btn btn-warning" (click)="update(restaurant.id)">Editar</button>
+                                    <button class="btn btn-danger" (click)="delete(restaurant.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
