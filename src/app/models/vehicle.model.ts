@@ -4,5 +4,5 @@ export class Vehicle {
     id?: number;
     license_plate: string;
     type_vehicle: string;
-    insurance?: Insurance;
+    insurances: Insurance[]; // Un array porque va a tener N seguros 
 }

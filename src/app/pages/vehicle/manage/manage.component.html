@@ -95,48 +95,6 @@
             </div>
             <br />
 
-            <div class="row">
-              <div class="col-4">
-                Seguro:
-              </div>
-              <div class="col-8">
-                <select 
-                  class="form-control" 
-                  formControlName="insurance_id" 
-                  [(ngModel)]="vehicle.insurance.id"
-                  [ngClass]="{
-                    'is-invalid':
-                      theFormGroup.get('insurance_id').errors &&
-                      (theFormGroup.get('insurance_id').dirty ||
-                        theFormGroup.get('insurance_id').touched ||
-                        trySend)
-                  }"
-                >
-                  <option *ngFor="let option of insurances" [value]="option.id">
-                    ID: {{ option.id }} - Número de póliza: {{ option.policy_number }} - Fecha de expiración: {{ option.expiration_date }}
-                  </option>
-                </select>
-                <br>
-                <div
-                  *ngIf="
-                    theFormGroup.get('insurance_id').errors &&
-                    (theFormGroup.get('insurance_id').dirty ||
-                      theFormGroup.get('insurance_id').touched ||
-                      trySend)
-                  "
-                  class="invalid-feedback"
-                >
-                  <small
-                    class="msnError"
-                    *ngIf="theFormGroup.get('insurance_id').errors['required']"
-                    >El seguro es obligatorio.</small
-                  >
-                </div>
-
-              </div>
-            </div>
-            <br>
-
             <!-- Botones -->
             <div class="row">
               <div class="col-4"></div>

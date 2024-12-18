@@ -32,9 +32,7 @@ export class ManageComponent implements OnInit {
       id: null, 
       license_plate: "", 
       type_vehicle: "",
-      insurance: {
-        id: null
-      }
+      insurances: [] // Array porque son N seguros en un vehículo
     };
     this.trySend = false;
   }
@@ -86,10 +84,6 @@ export class ManageComponent implements OnInit {
           Validators.pattern(/^(Automóvil|Camión|Motocicleta|Bicicleta|Bus)$/i) // Solo permite ciertos valores (puedes personalizar esta lista)
         ]
       ],
-      insurance_id: [
-        null,
-        Validators.required
-      ]
     });
   }
 
@@ -104,7 +98,6 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    console.log(JSON.stringify(this.vehicle))
     if (this.theFormGroup.invalid) {
       this.trySend = true;
       Swal.fire("Formulario incorrecto", "Ingrese correctamente los datos", "error");

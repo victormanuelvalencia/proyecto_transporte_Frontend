@@ -1,5 +1,4 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-   
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
@@ -20,7 +19,11 @@
                                     ID:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="driver.id" disabled>
+                                    <input type="text"
+                                        class="form-control"
+                                        [(ngModel)]="driver.id" 
+                                        disabled
+                                    >
                                     <br>
                                 </div>
                             </div>
@@ -43,7 +46,7 @@
                                     <div *ngIf="theFormGroup.get('license_number').errors && (theFormGroup.get('license_number').dirty || theFormGroup.get('license_number').touched || trySend)"
                                         class="invalid-feedback"
                                     >
-                                    <small class="msnError" *ngIf="theFormGroup.get('license_number').errors['required']">El campo número de licencia es obligatorio.</small>
+                                      <small class="msnError" *ngIf="theFormGroup.get('license_number').errors['required']">El campo número de licencia es obligatorio.</small>
                                     </div>
                                 </div>
                             </div>
@@ -71,29 +74,31 @@
                                 </div>
                             </div>
                             <br>
+                            
+                            <br>
                             <div class="row">
                                 <div class="col-4">
                                     ID de Usuario:
                                 </div>
                                 <div class="col-8">
                                     <input 
-                                            type="text" 
-                                            class="form-control" 
-                                            [(ngModel)]="driver.user_id" 
-                                            [disabled]="mode !== 2"
-                                            formControlName="user_id" 
-                                            [(ngModel)]="driver.user_id"
-                                            [ngClass]="{'is-invalid': theFormGroup.get('user_id').errors && (theFormGroup.get('user_id').dirty || theFormGroup.get('user_id').touched || trySend)}"
-                                        >
-                                        <div *ngIf="theFormGroup.get('user_id').errors && (theFormGroup.get('user_id').dirty || theFormGroup.get('user_id').touched || trySend)"
-                                            class="invalid-feedback">
-                                            <small class="msnError" *ngIf="theFormGroup.get('user_id').errors['pattern']">El ID de usuario solo puede contener letras y números, con un máximo de 30 caracteres.</small>
-                                        </div>
+                                        type="text" 
+                                        class="form-control" 
+                                        [(ngModel)]="driver.user_id" 
+                                        [disabled]="mode !== 2"
+                                        formControlName="user_id" 
+                                        [(ngModel)]="driver.user_id"
+                                        [ngClass]="{'is-invalid': theFormGroup.get('user_id').errors && (theFormGroup.get('user_id').dirty || theFormGroup.get('user_id').touched || trySend)}"
+                                    >
+                                    <div *ngIf="theFormGroup.get('user_id').errors && (theFormGroup.get('user_id').dirty || theFormGroup.get('user_id').touched || trySend)"
+                                        class="invalid-feedback">
+                                        <small class="msnError" *ngIf="theFormGroup.get('user_id').errors['pattern']">El ID de usuario solo puede contener letras y números, con un máximo de 30 caracteres.</small>
+                                    </div>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-4">        
+                                <div class="col-4">           
                                 </div>
                                 <div class="col-8">
                                     <br>

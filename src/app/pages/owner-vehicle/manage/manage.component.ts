@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwnerVehicle } from 'src/app/models/owner-vehicle';
+import { Owner } from 'src/app/models/owner.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
 import { OwnerVehicleService } from 'src/app/services/owner-vehicle.service';
+import { OwnerService } from 'src/app/services/owner.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,12 +20,18 @@ export class ManageComponent implements OnInit {
   owner_vehicle: OwnerVehicle;
   theFormGroup: FormGroup;
   trySend: boolean;
+  owners: Owner[]; // Acá están todos los owners que está creados en la base de datos
+  vehicles: Vehicle[]; // Todo lo de vehicles es igual a lo de owners
   // Se encarga de activar la ruta
   constructor(private activateRoute: ActivatedRoute,
               private service: OwnerVehicleService,
+              private ownerService: OwnerService, // Acá conectamos con el backend
+              private vehicleService: VehicleService,
               private router: Router,
               private theFormBuilder: FormBuilder
   ) {
+    this.owners = []; // Inicialializamos la lista vacía
+    this.vehicles = [];
     this.mode = 1;
     // Objeto creado por defecto, enlaza la vista con el controlador
     this.owner_vehicle = {id: null, owner_id: null, vehicle_id: null};
@@ -35,14 +45,35 @@ export class ManageComponent implements OnInit {
         this.owner_vehicle = data; // Asignar los datos
       },
       error: (err) => {
-        console.error('Error al cargar el conductor:', err);
-        Swal.fire("Error", "No se pudo cargar el conductor", "error");
+        console.error('Error al cargar el dueño de vehículos:', err);
+        Swal.fire("Error", "No se pudo cargar el dueño de vehículos", "error");
+      }
+    });
+  }
+
+  loadOwnersAndVehicles() {
+    this.ownerService.list().subscribe({ // Acá conectamos con el backend para listar los owners
+      next: (data) => {
+        this.owners = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar owners:', err);
+      }
+    });
+
+    this.vehicleService.list().subscribe({ // Acá conectamos con el backend para listar los vehicles
+      next: (data) => {
+        this.vehicles = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar vehicles:', err);
       }
     });
   }
   
   ngOnInit(): void {
-    this.configFormGroup()
+    this.configFormGroup();
+    this.loadOwnersAndVehicles(); // Llamamos el método que lista los owners y los vehicles
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -65,14 +96,12 @@ export class ManageComponent implements OnInit {
         '', 
         [
           Validators.required, 
-          Validators.pattern('^[0-9]{1,5}$') 
         ]
       ],
       vehicle_id: [
         '', 
         [
           Validators.required,
-          Validators.pattern('^[0-9]{1,5}$')  
         ]
       ]
     });

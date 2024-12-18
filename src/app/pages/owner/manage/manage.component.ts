@@ -1,3 +1,4 @@
+import { NonNullAssert } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,9 +22,9 @@ export class ManageComponent implements OnInit {
               private router: Router,
               private theFormBuilder: FormBuilder
   ) {
-    this.mode = 1;
+    this.mode = 0;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.owner = {id: 0, license_expiry: "", license_number: "", user_id: "", rating: null};
+    this.owner = {id: 0, license_expiry: null, license_number: "", user_id: "", rating: null};
     this.trySend = false;
   }
 
@@ -31,7 +32,7 @@ export class ManageComponent implements OnInit {
     // Primer elemento del vector: Valor por defecto
     // Lista: Reglas 
     this.theFormGroup = this.theFormBuilder.group({
-      license_expiry: ['', [Validators.required]],
+      license_expiry: [null, [Validators.required]],
       license_number: [
         '', 
         [Validators.required, Validators.pattern(/^[0-9]{5,30}$/)] // Solo números, entre 5 y 30 dígitos

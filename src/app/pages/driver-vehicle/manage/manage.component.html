@@ -31,65 +31,76 @@
 
                             <div class="row">
                                 <div class="col-4">
-                                    ID de Conductor:
+                                    ID Conductor:
                                 </div>
                                 <div class="col-8">
-                                    <input 
-                                        class="form-control" 
-                                        type="number" 
-                                        formControlName="driver_id" 
-                                        [ngClass]="{'is-invalid': theFormGroup.get('driver_id').errors && (theFormGroup.get('driver_id').dirty || theFormGroup.get('driver_id').touched || trySend)}"
-                                    />
-                                    <br>
-                                    <div *ngIf="theFormGroup.get('driver_id').errors && (theFormGroup.get('driver_id').dirty || theFormGroup.get('driver_id').touched || trySend)"
-                                        class="invalid-feedback"
+                                    <select
+                                        class="form-control"
+                                        formControlName="driver_id"
+                                        [ngClass]="{
+                                        'is-invalid': theFormGroup.get('driver_id')?.invalid &&
+                                                        (theFormGroup.get('driver_id')?.dirty || theFormGroup.get('driver_id')?.touched || trySend)
+                                        }"
                                     >
-                                        <small class="msnError" *ngIf="theFormGroup.get('driver_id').errors['required']">El ID de conductor es obligatorio.</small>
-                                        <small class="msnError" *ngIf="theFormGroup.get('driver_id').errors['pattern']">El ID de conductor solo debe contener números.</small>
-                                    </div>
+                                        <option *ngFor="let driver of drivers" [value]="driver.id">
+                                            ID: {{ driver.id }} - Licencia: {{ driver.license_number }} - Rating {{ driver.rating }}
+                                        </option>
+                                    </select>
+                                    <br>
                                 </div>
                             </div>
                             <br>
 
                             <div class="row">
                                 <div class="col-4">
-                                    ID de Dueño:
+                                    ID Dueño:
                                 </div>
                                 <div class="col-8">
-                                    <input 
-                                        class="form-control" 
-                                        type="number" 
-                                        formControlName="owner_id" 
-                                        [ngClass]="{'is-invalid': theFormGroup.get('owner_id').errors && (theFormGroup.get('owner_id').dirty || theFormGroup.get('owner_id').touched || trySend)}"
-                                    />
-                                    <br>
-                                    <div *ngIf="theFormGroup.get('owner_id').errors && (theFormGroup.get('owner_id').dirty || theFormGroup.get('owner_id').touched || trySend)"
-                                        class="invalid-feedback"
+                                    <select
+                                        class="form-control"
+                                        formControlName="owner_id"
+                                        [ngClass]="{
+                                        'is-invalid': theFormGroup.get('owner_id')?.invalid &&
+                                                        (theFormGroup.get('owner_id')?.dirty || theFormGroup.get('owner_id')?.touched || trySend)
+                                        }"
                                     >
-                                        <small class="msnError" *ngIf="theFormGroup.get('owner_id').errors['required']">El ID de dueño es obligatorio.</small>
-                                        <small class="msnError" *ngIf="theFormGroup.get('owner_id').errors['pattern']">El ID de dueño solo debe contener números.</small>
-                                    </div>
+                                        <option *ngFor="let owner of owners" [value]="owner.id">
+                                        ID: {{ owner.id }} - Licencia: {{ owner.license_number }}
+                                        </option>
+                                    </select>
+                                    <br>
                                 </div>
                             </div>
                             <br>
-
+                              
                             <div class="row">
                                 <div class="col-4">
-                                    ID de Vehículo:
+                                    ID Vehículo:
                                 </div>
                                 <div class="col-8">
-                                    <input 
-                                        class="form-control" 
-                                        type="number" 
-                                        formControlName="vehicle_id" 
-                                        [ngClass]="{'is-invalid': theFormGroup.get('vehicle_id').errors && (theFormGroup.get('vehicle_id').dirty || theFormGroup.get('vehicle_id').touched || trySend)}"
-                                    />
+                                    <select
+                                        class="form-control"
+                                        formControlName="vehicle_id"
+                                        [ngClass]="{
+                                            'is-invalid': 
+                                            theFormGroup.get('vehicle_id').errors &&
+                                            (theFormGroup.get('vehicle_id').dirty || theFormGroup.get('vehicle_id').touched || trySend)
+                                        }">
+                                    >
+                                        <!-- Este For recorre todos los vehicles para listarlos en el select -->
+                                        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+                                            ID: {{ vehicle.id }} - Placa: {{ vehicle.license_plate }} - Tipo: {{ vehicle.type_vehicle }}
+                                        </option>
+                                    </select>
                                     <br>
-                                    <div *ngIf="theFormGroup.get('vehicle_id').errors && (theFormGroup.get('vehicle_id').dirty || theFormGroup.get('vehicle_id').touched || trySend)"
+                                    <div
+                                        *ngIf="theFormGroup.get('owner_id').errors &&
+                                                    (theFormGroup.get('owner_id').dirty || theFormGroup.get('owner_id').touched || trySend)"
                                         class="invalid-feedback"
                                     >
-                                        <small class="msnError" *ngIf="theFormGroup.get('vehicle_id').errors['required']">El ID de vehículo es obligatorio.</small>
-                                        <small class="msnError" *ngIf="theFormGroup.get('vehicle_id').errors['pattern']">El ID de vehículo solo debe contener números.</small>
+                                        <small class="msnError" *ngIf="theFormGroup.get('owner_id').errors['required']">
+                                            El ID del vehículo es obligatorio.
+                                        </small>
                                     </div>
                                 </div>
                             </div>

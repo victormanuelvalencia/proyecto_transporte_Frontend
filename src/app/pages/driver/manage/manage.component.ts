@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/driver.model';
-import { DriverService } from 'src/app/services/driver.service';
+import { DriverService} from 'src/app/services/driver.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,30 +21,17 @@ export class ManageComponent implements OnInit {
               private router: Router,
               private theFormBuilder: FormBuilder
   ) {
-    this.mode = 1;
+    this.mode = 0;
     // Objeto creado por defecto, enlaza la vista con el controlador
-    this.driver = {id: 0, license_number: "", license_expiry: null, user_id: ""};
+    this.driver = {id: 0, license_expiry: null, license_number: "", user_id: ""};
     this.trySend = false;
-  }
-
-  getDriver(id: number) {
-    this.service.view(id).subscribe({
-      next: (data) => {
-        console.log('Datos recibidos del servicio:', data);
-        this.driver = data; // Asignar los datos
-      },
-      error: (err) => {
-        console.error('Error al cargar el conductor:', err);
-        Swal.fire("Error", "No se pudo cargar el conductor", "error");
-      }
-    });
   }
 
   configFormGroup(){
     // Primer elemento del vector: Valor por defecto
     // Lista: Reglas 
     this.theFormGroup = this.theFormBuilder.group({
-      license_expiry: ['', [Validators.required]],
+      license_expiry: [null, [Validators.required]],
       license_number: [
         '', 
         [Validators.required, Validators.pattern(/^[0-9]{5,30}$/)] // Solo números, entre 5 y 30 dígitos
@@ -59,31 +46,41 @@ export class ManageComponent implements OnInit {
   get getTheFormGroup(){
     return this.theFormGroup.controls
   }
-  
+
   ngOnInit(): void {
     this.configFormGroup();
+    // Esta línea se encarga de tomarle una foto a la ruta y se la asigna a 'currentUrl'
     const currentUrl = this.activateRoute.snapshot.url.join('/');
+    // Si la ruta incluye la palabra 'view', se le asigna el modo 1
     if (currentUrl.includes('view')) {
-      this.mode = 1;
+      this.mode =  1;
     } else if (currentUrl.includes('create')) {
-      this.mode = 2;
+      this.mode =  2;
     } else if (currentUrl.includes('update')) {
-      this.mode = 3;
+      this.mode =  3;
     }
-    const id = this.activateRoute.snapshot.params.id;
-    if (id) {
-      console.log('ID recibido:', id);
-      this.getDriver(id);
+    if(this.activateRoute.snapshot.params.id) {
+      /*  
+      Lo que hace este condicional es tomarle una foto al 'activateRoute',
+      y si viene el parámetro 'id' se le asigna al 'id' del 'theater' 
+      */
+      this.driver.id = this.activateRoute.snapshot.params.id;
+      this.getDriver(this.driver.id);
     }
   }
-  
+
+  getDriver(id: number){
+    this.service.view(id).subscribe(data => {
+      this.driver = data;
+    })
+  }
 
   create() {
     this.trySend = true;
     if(this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene correctamente los campos", "error")
     } else {
-      this.service.create(this.driver).subscribe(data => {
+    this.service.create(this.driver).subscribe(data => {
         Swal.fire("Completado", "Se ha creado correctamente", "success");
         this.router.navigate(['drivers/list'])
       })
